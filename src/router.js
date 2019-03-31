@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
 
 Vue.use(Router);
 
@@ -10,16 +9,32 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'index',
+      component: () => import('./views/Index.vue'),
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      path: '/console',
+      component: () => import('./components/Console/Index.vue'),
+      children: [
+        {
+          path: 'data',
+          component: () => import('./views/Console/Data.vue'),
+          meta: {
+            title: '数据管理',
+          },
+        },
+        {
+          path: 'chart',
+          component: () => import('./views/Console/Chart.vue'),
+          meta: {
+            title: '我的可视化',
+          },
+        },
+        {
+          path: '',
+          redirect: 'chart',
+        },
+      ],
     },
   ],
 });
