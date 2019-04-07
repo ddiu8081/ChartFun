@@ -8,21 +8,19 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  user-select: none;
+}
+.el-header {
+  padding: 0;
+}
+.el-container {
+  height: 100%;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  height: 100vh;
 }
 </style>

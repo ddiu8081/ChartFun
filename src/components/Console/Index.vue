@@ -14,7 +14,6 @@ import NavMenu from './NavMenu.vue';
 import PageHeader from './PageHeader.vue';
 
 export default {
-  name: 'home',
   components: {
     NavMenu,
     PageHeader,
@@ -34,6 +33,6 @@ export default {
 }
 
 .el-main {
-  padding: 116px 40px 0;
+  padding: 106px 40px 0;
 }
 </style>

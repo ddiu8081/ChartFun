@@ -1,6 +1,7 @@
 <template lang="pug">
   .header
-    .page-title {{pageTitle}}
+    .page-title
+      span {{pageTitle}}
     .icon-row
       el-badge.icon.item(is-dot :hidden="true")
         i.el-icon-bell

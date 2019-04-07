@@ -36,5 +36,18 @@ export default new Router({
         },
       ],
     },
+    {
+      path: '/edit',
+      component: () => import('./components/Editor/Index.vue'),
+      children: [
+        {
+          path: ':id',
+          component: () => import('./views/Editor/Canvas.vue'),
+          meta: {
+            title: '数据管理',
+          },
+        },
+      ],
+    },
   ],
 });
