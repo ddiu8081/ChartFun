@@ -7,9 +7,9 @@
     .config-view
       Config
     .scale-view
-      ScaleBar
+      ScaleBar(@update:scale="changeScale")
     .main-view
-      router-view
+      router-view(:scale="scale")
 </template>
 
 <script>
@@ -26,7 +26,14 @@ export default {
     ScaleBar,
   },
   data() {
-    return {};
+    return {
+      scale: 50,
+    };
+  },
+  methods: {
+    changeScale(scale) {
+      this.scale = scale;
+    },
   },
 };
 </script>
@@ -64,15 +71,15 @@ export default {
 
 .scale-view {
   position: absolute;
-  right: 320px;
-  bottom: 20px;
+  right: 316px;
+  bottom: 16px;
   z-index: 1000;
 }
 
 .main-view {
-  background: #333333;
+  background: #1e1e1e;
   padding: 60px 300px 0 50px;
-  overflow: scroll;
+  overflow: hidden;
   height: calc(100vh - 60px);
 }
 </style>

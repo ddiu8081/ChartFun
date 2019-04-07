@@ -1,27 +1,99 @@
 <template lang="pug">
   .panel
-    vue-draggable-resizable(:w="100" :h="100" :parent="true" class-name="canvas-box")
+    // .canvas-view
+      vue-draggable-resizable(
+        :w="100"
+        :h="80"
+        :parent="true"
+        class-name="canvas-box"
+        class-name-dragging="canvas-box-dragging"
+        :resizable="false")
+    .control-bar
+      i.btn.el-icon-minus(@click="zoomOut")
+      .scale-mount {{scale}}%
+      i.btn.el-icon-plus(@click="zoomIn")
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      scale: 50,
+    };
+  },
+  watch: {
+    scale() {
+      this.$emit('update:scale', this.scale);
+    },
+  },
+  methods: {
+    zoomOut() {
+      this.scale -= 10;
+    },
+    zoomIn() {
+      this.scale += 10;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .panel {
-  height: 140px;
-  width: 160px;
+  width: 130px;
   border-radius: 8px;
   display: flex;
   align-items: center;
+  background: #1e1e1ecc;
+}
+
+.control-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 32px;
+  color: #aaaaaa;
+  padding: 0 6px;
+
+  .btn {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 14px;
+    font-size: 12px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #333333;
+      color: #ffffff;
+    }
+  }
+
+  .scale-mount {
+    flex: 1;
+    font-size: 14px;
+  }
+}
+
+.canvas-view {
+  position: relative;
   background: #1e1e1ee9;
+  width: 144px;
+  margin: 6px 8px;
+  height: 120px;
 }
 
 .canvas-box {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.canvas-box-dragging, .canvas-box-dragging:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 </style>

@@ -1,10 +1,41 @@
 <template lang="pug">
-  .edit-view
-    .screen
+  .edit-view(
+    tabindex="0"
+    @keydown.space.prevent="handleSpaceDown"
+    @keyup.space.prevent="handleSpaceUp")
+    vue-draggable-resizable(
+        :style="screenStyle"
+        :w="1920"
+        :h="1080"
+        class-name="screen-box"
+        class-name-dragging="canvas-box-dragging"
+        :draggable="screenDraggable"
+        :resizable="false")
 </template>
 
 <script>
 export default {
+  props: ['scale'],
+  data() {
+    return {
+      screenDraggable: false,
+    };
+  },
+  computed: {
+    screenStyle() {
+      return {
+        transform: `scale(${this.scale / 100})`,
+      };
+    },
+  },
+  methods: {
+    handleSpaceDown() {
+      this.screenDraggable = true;
+    },
+    handleSpaceUp() {
+      this.screenDraggable = false;
+    },
+  },
 };
 </script>
 
@@ -15,6 +46,15 @@ export default {
   height: 100%;
   box-sizing: border-box;
   overflow: visible;
+  outline: 0;
+}
+
+.screen-box {
+  // width: 1220px;
+  // height: 400px;
+  background: #999;
+  transform-origin: 0 0;
+  box-shadow: 0 0 40px #111;
 }
 
 .screen {
@@ -22,7 +62,7 @@ export default {
   width: 1220px;
   height: 400px;
   background: #999;
-  transition: all 0.3s ease;
+  // transition: all 0.3s ease;
   transform: scale(0.7);
   transform-origin: 0 0;
   left: 0;
