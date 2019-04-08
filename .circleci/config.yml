@@ -1,14 +1,13 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
+# executors:
+#   docker:
+#     - image: circleci/node:lts
 jobs:
   build:
     docker:
       - image: circleci/node:lts
     working_directory: ~/repo
-    branches:
+    branchs:
       only:
         - master
     steps:
@@ -17,16 +16,22 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: 
+      - add_ssh_keys:
+          fingerprints:
+            - "SO:ME:FIN:G:ER:PR:IN:T"
+      - run:
           name: Install Dependence
           command: npm install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: 
+      - run:
           name: Build
           command: npm run build
-      - run: 
+      - run:
           name: Deploy
-          command: cd dist && ls
+          command: |
+            git config user.name ${GH_NAME}
+            git config user.name ${GH_EMAIL}
+            npx gh-pages -d dist -r https://${GH_TOKEN}@github.com/ddiu8081/ChartFun.git -b master -m "uploaded newest dist."
