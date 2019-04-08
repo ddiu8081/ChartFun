@@ -28,7 +28,7 @@ jobs:
           command: |
             git config --global user.email ${GH_EMAIL}
             git config --global user.name ${GH_NAME}
-            npx gh-pages -d dist -r https://github.com/ddiu8081/ChartFun.git -b gh-pages -m "[ci skip] Auto built from master."
+            npx gh-pages -d dist -r https://github.com/ddiu8081/ChartFun.git -b gh-pages -m "auto commit. [ci skip]"
 workflows:
    version: 2
    build_and_deploy:
