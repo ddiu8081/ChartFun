@@ -13,9 +13,6 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - add_ssh_keys:
-          fingerprints:
-            - "SO:ME:FIN:G:ER:PR:IN:T"
       - run:
           name: Install Dependence
           command: npm install
@@ -31,7 +28,7 @@ jobs:
           command: |
             git config --global user.email ${GH_EMAIL}
             git config --global user.name ${GH_NAME}
-            npx gh-pages -d dist -r https://github.com/ddiu8081/ChartFun.git -b gh-pages -m "uploaded newest dist."
+            npx gh-pages -d dist -r https://github.com/ddiu8081/ChartFun.git -b gh-pages -m "[ci skip] Auto built from master."
 workflows:
    version: 2
    build_and_deploy:
