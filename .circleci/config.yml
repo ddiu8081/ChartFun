@@ -29,8 +29,8 @@ jobs:
       - run:
           name: Deploy to gh-pages
           command: |
-            git config user.name ${GH_NAME}
-            git config user.name ${GH_EMAIL}
+            git config --global user.email ${GH_EMAIL}
+            git config --global user.name ${GH_NAME}
             npx gh-pages -d dist -r https://github.com/ddiu8081/ChartFun.git -b gh-pages -m "uploaded newest dist."
 workflows:
    version: 2
