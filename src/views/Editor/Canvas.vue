@@ -8,9 +8,32 @@
         :w="1920"
         :h="1080"
         class-name="screen-box"
-        class-name-dragging="canvas-box-dragging"
+        class-name-draggable="screen-box-draggable"
         :draggable="screenDraggable"
         :resizable="false")
+      .screen
+        vue-drag-resize(
+          v-for="item in elements"
+          :key="item.name"
+          :isActive="true"
+          :preventActiveBehavior="true"
+          :parentScaleX="scale"
+          :parentScaleY="scale"
+          :x="item.x"
+          :y="item.y"
+          :w="item.w"
+          :h="item.h"
+          :parentLimitation="true"
+          :parentW="1920"
+          :parentH="1080"
+          :aspectRatio="false"
+          :minw="20"
+          :minh="20"
+          :z="100"
+          :isDraggable="true"
+          :isResizable="true"
+          @resizing="handleResize(item, arguments)"
+          @dragging="handleDrag(item, arguments)")
 </template>
 
 <script>
@@ -19,12 +42,21 @@ export default {
   data() {
     return {
       screenDraggable: false,
+      elements: [
+        {
+          name: 'keykey1',
+          x: 10,
+          y: 100,
+          w: 192,
+          h: 108,
+        },
+      ],
     };
   },
   computed: {
     screenStyle() {
       return {
-        transform: `scale(${this.scale / 100})`,
+        transform: `scale(${this.scale})`,
       };
     },
   },
@@ -34,6 +66,16 @@ export default {
     },
     handleSpaceUp() {
       this.screenDraggable = false;
+    },
+    handleResize(item, args) {
+      item.x = args[0].left;
+      item.y = args[0].top;
+      item.w = args[0].width;
+      item.h = args[0].height;
+    },
+    handleDrag(item, args) {
+      item.x = args[0].left;
+      item.y = args[0].top;
     },
   },
 };
@@ -55,21 +97,16 @@ export default {
   background: #999;
   transform-origin: 0 0;
   box-shadow: 0 0 40px #111;
+  transition: transform 0.5s ease;
+
+  &.screen-box-draggable {
+    cursor: grab;
+  }
 }
 
 .screen {
-  position: absolute;
-  width: 1220px;
-  height: 400px;
-  background: #999;
-  // transition: all 0.3s ease;
-  transform: scale(0.7);
-  transform-origin: 0 0;
-  left: 0;
-  top: 0;
-  margin: 100px;
-  // zoom: 0.5;
-  // box-sizing: border-box;
-  box-shadow: 0 0 40px #333;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 </style>

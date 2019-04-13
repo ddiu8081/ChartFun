@@ -10,7 +10,7 @@
         :resizable="false")
     .control-bar
       i.btn.el-icon-minus(@click="zoomOut")
-      .scale-mount {{scale}}%
+      .scale-mount {{scale * 100}}%
       i.btn.el-icon-plus(@click="zoomIn")
 </template>
 
@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      scale: 50,
+      scale: 0.5,
     };
   },
   watch: {
@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     zoomOut() {
-      this.scale -= 10;
+      this.scale -= 0.1;
     },
     zoomIn() {
-      this.scale += 10;
+      this.scale += 0.1;
     },
   },
 };

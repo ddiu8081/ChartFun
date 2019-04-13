@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      scale: 50,
+      scale: 0.5,
     };
   },
   methods: {
