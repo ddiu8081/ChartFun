@@ -67,13 +67,15 @@ export default {
     handleSpaceUp() {
       this.screenDraggable = false;
     },
-    handleResize(item, args) {
+    handleResize(widget, args) {
+      const item = widget;
       item.x = args[0].left;
       item.y = args[0].top;
       item.w = args[0].width;
       item.h = args[0].height;
     },
-    handleDrag(item, args) {
+    handleDrag(widget, args) {
+      const item = widget;
       item.x = args[0].left;
       item.y = args[0].top;
     },

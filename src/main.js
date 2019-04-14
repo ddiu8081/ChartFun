@@ -8,8 +8,14 @@ import './assets/font/iconfont.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import http from './http';
+
+// 需要 mock 数据时请打开注释
+import initMock from '../mock';
+initMock();
 
 Vue.config.productionTip = false;
+Vue.prototype.$http = http;
 Vue.use(ElementUI);
 Vue.component('vue-draggable-resizable', VueDraggableResizable);
 Vue.component('vue-drag-resize', VueDragResize);

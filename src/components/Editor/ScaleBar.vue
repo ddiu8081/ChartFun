@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     zoomOut() {
-      this.scale -= 0.1;
+      this.scale = parseFloat((this.scale - 0.1).toFixed(1));
     },
     zoomIn() {
-      this.scale += 0.1;
+      this.scale = parseFloat((this.scale + 0.1).toFixed(1));
     },
   },
 };
