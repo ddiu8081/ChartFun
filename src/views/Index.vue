@@ -10,21 +10,6 @@
 <script>
 export default {
   mounted() {
-    this.$http.get('charts', {
-      params: {
-        ID: 12345
-      }
-    })
-    .then(res => {
-      const { errno, data } = res;
-      if (errno === 0) {
-        this.
-        console.log(data);
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   },
 };
 </script>

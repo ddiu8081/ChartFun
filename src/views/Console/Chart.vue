@@ -1,14 +1,14 @@
 <template lang="pug">
   div
     // .page-header-slot
-      el-button(type="primary" icon="el-icon-plus" round) 新建
-      el-input.search(placeholder="搜索名称" prefix-icon="el-icon-search" v-model="filter")
+    //   el-button(type="primary" icon="el-icon-plus" round) 新建
+    //   el-input.search(placeholder="搜索名称" prefix-icon="el-icon-search" v-model="filter")
     el-row(:gutter="36")
-      el-col(:span="6")
+      el-col(:span="6" v-for="item in chartData")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="editThis('123456')")
           img.image(src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png")
           div(style="padding: 14px;")
-            span title
+            span {{item.title}}
       el-col(:span="6")
         el-card(:body-style="{ padding: '0px' }" shadow="hover")
           .add-card
@@ -19,10 +19,26 @@
 export default {
   data() {
     return {
+      chartData: [],
       filter: '',
     };
   },
   mounted() {
+    this.$http.get('charts', {
+      params: {
+        ID: 12345,
+      },
+    })
+      .then((res) => {
+        const { errno, data } = res.data;
+        if (errno === 0) {
+          console.log(data);
+          this.chartData = data.chartList;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     editThis(path) {

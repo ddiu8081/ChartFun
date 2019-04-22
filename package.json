@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.2.1",
     "element-ui": "^2.7.0",
     "mockjs": "^1.0.1-beta3",
+    "v-charts": "^1.19.0",
     "vue": "^2.6.6",
     "vue-drag-resize": "^1.3.2",
     "vue-draggable-resizable": "^2.0.0-rc1",
