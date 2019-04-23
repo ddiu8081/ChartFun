@@ -2,18 +2,18 @@
   .toolbar
     .toolbox
       .tool-list
-        .btn
+        .btn(@click="showPanel('chart')")
           i.iconfont.icon-chart
-        .btn
+        .btn(@click="showPanel('text')")
           i.iconfont.icon-text
-        .btn
+        .btn(@click="showPanel('picture')")
           i.iconfont.icon-picture
-        .btn
+        .btn(@click="showPanel('tools')")
           i.iconfont.icon-tools
-      .layer-btn.btn(@click="showCollapsePanel=!showCollapsePanel")
+      .layer-btn.btn(@click="showPanel('chart')")
         i.iconfont.icon-layer
-    .collapse-panel(v-show="showCollapsePanel")
-      SidePanel
+    .collapse-panel(v-show="panelKey")
+      SidePanel(:panelKey="panelKey")
 </template>
 
 <script>
@@ -25,8 +25,18 @@ export default {
   },
   data() {
     return {
+      panelKey: '',
       showCollapsePanel: false,
     };
+  },
+  methods: {
+    showPanel(key) {
+      if (this.panelKey == key) {
+        this.panelKey = '';
+      } else {
+        this.panelKey = key;
+      }
+    },
   },
 };
 </script>
@@ -56,6 +66,7 @@ export default {
     transition: all 0.3s ease;
     color: #999;
     &:hover {
+      cursor: pointer;
       background-color: rgba(255, 255, 255, 0.1);
       color: #ffffff;
     }
