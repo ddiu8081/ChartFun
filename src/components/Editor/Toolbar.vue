@@ -2,15 +2,9 @@
   .toolbar
     .toolbox
       .tool-list
-        .btn(@click="showPanel('chart')")
-          i.iconfont.icon-chart
-        .btn(@click="showPanel('text')")
-          i.iconfont.icon-text
-        .btn(@click="showPanel('picture')")
-          i.iconfont.icon-picture
-        .btn(@click="showPanel('tools')")
-          i.iconfont.icon-tools
-      .layer-btn.btn(@click="showPanel('chart')")
+        .btn(v-for="item in btnList" :class="{active: panelKey == item.key}" @click="showPanel(item.key)")
+          i.iconfont(:class="'icon-' + item.key")
+      .btn(:class="{active: panelKey == 'layers'}" @click="showPanel('layers')")
         i.iconfont.icon-layer
     .collapse-panel(v-show="panelKey")
       SidePanel(:panelKey="panelKey")
@@ -26,6 +20,21 @@ export default {
   data() {
     return {
       panelKey: '',
+      btnList: [
+        {
+          key: 'chart',
+          name: '图表',
+        }, {
+          key: 'text',
+          name: '文字',
+        }, {
+          key: 'picture',
+          name: '图片',
+        }, {
+          key: 'tools',
+          name: '组件',
+        },
+      ],
       showCollapsePanel: false,
     };
   },
@@ -69,6 +78,10 @@ export default {
       cursor: pointer;
       background-color: rgba(255, 255, 255, 0.1);
       color: #ffffff;
+    }
+    &.active {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #409EFF;
     }
     .iconfont {
       font-size: 24px;

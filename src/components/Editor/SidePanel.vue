@@ -1,7 +1,11 @@
 <template lang="pug">
   .panel
-    .title {{componentList[panelKey].name}} ({{componentList[panelKey].children.length}})
-    .component-list
+    .title(v-if="panelKey === 'layers'") 图层 (13)
+    .title(v-else) {{componentList[panelKey].name}} ({{componentList[panelKey].children.length}})
+    .layer-list(v-if="panelKey === 'layers'")
+      .list-item(v-for="item in layerList")
+        .name 图层x
+    .component-list(v-else)
       .list-item(v-for="item in componentList[panelKey].children")
         img(:src="item.img")
         .name {{item.name}}
@@ -104,6 +108,7 @@ export default {
           ]
         },
       },
+      layerList: [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5],
     };
   },
 };
@@ -157,6 +162,36 @@ export default {
       height: 20px;
       line-height: 20px;
       font-size: 13px;
+      color: #777777;
+    }
+  }
+}
+
+.layer-list {
+  flex: 1;
+  padding: 0;
+  overflow: scroll;
+
+  .list-item {
+    height: 48px;
+    width: 100%;
+    line-height: 48px;
+    transition: background 0.3s ease;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    margin-bottom: -1px;
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    &:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.04);
+      .name {
+        color: #999999;
+      }
+    }
+
+    .name {
       color: #777777;
     }
   }
