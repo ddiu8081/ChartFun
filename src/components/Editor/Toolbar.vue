@@ -2,9 +2,12 @@
   .toolbar
     .toolbox
       .tool-list
-        .btn(v-for="item in btnList" :class="{active: panelKey == item.key}" @click="showPanel(item.key)")
+        .btn(
+          v-for="item in btnList"
+          :class="{active: panelKey === item.key}"
+          @click="showPanel(item.key)")
           i.iconfont(:class="'icon-' + item.key")
-      .btn(:class="{active: panelKey == 'layers'}" @click="showPanel('layers')")
+      .btn(:class="{active: panelKey === 'layers'}" @click="showPanel('layers')")
         i.iconfont.icon-layer
     .collapse-panel(v-show="panelKey")
       SidePanel(:panelKey="panelKey")
@@ -40,7 +43,7 @@ export default {
   },
   methods: {
     showPanel(key) {
-      if (this.panelKey == key) {
+      if (this.panelKey === key) {
         this.panelKey = '';
       } else {
         this.panelKey = key;

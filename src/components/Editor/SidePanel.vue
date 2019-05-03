@@ -1,6 +1,6 @@
 <template lang="pug">
   .panel
-    .title(v-if="panelKey === 'layers'") 图层 (13)
+    .title(v-if="panelKey === 'layers'") 图层 ({{layerList.length}})
     .title(v-else) {{componentList[panelKey].name}} ({{componentList[panelKey].children.length}})
     .layer-list(v-if="panelKey === 'layers'")
       .list-item(v-for="item in layerList")
@@ -81,7 +81,7 @@ export default {
               name: '词云图',
               img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/word-cloud.png',
             },
-          ]
+          ],
         },
         text: {
           name: '文本',
@@ -91,11 +91,11 @@ export default {
               name: '文本',
               img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/text.png',
             },
-          ]
+          ],
         },
         picture: {
           name: '图片',
-          children: []
+          children: [],
         },
         tools: {
           name: '组件',
@@ -105,7 +105,7 @@ export default {
               name: '边框',
               img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/border2.png',
             },
-          ]
+          ],
         },
       },
       layerList: [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5],
