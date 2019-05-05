@@ -29,6 +29,10 @@ export default {
     return {
       title: '',
       scale: 0.5,
+      chartData: {
+        elements: [],
+      },
+      currentElementIndex: 1,
     };
   },
   mounted() {
@@ -37,6 +41,7 @@ export default {
         const { errno, data } = res.data;
         if (errno === 0) {
           this.title = data.title;
+          this.chartData = data.chartData;
         }
       })
       .catch(() => {});

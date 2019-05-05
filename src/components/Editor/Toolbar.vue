@@ -41,6 +41,11 @@ export default {
       showCollapsePanel: false,
     };
   },
+  computed: {
+    chartData() {
+      return this.$parent.chartData;
+    },
+  },
   methods: {
     showPanel(key) {
       if (this.panelKey === key) {

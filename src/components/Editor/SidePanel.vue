@@ -1,9 +1,11 @@
 <template lang="pug">
   .panel
-    .title(v-if="panelKey === 'layers'") 图层 ({{layerList.length}})
+    .title(v-if="panelKey === 'layers'") 图层 ({{chartData.elements.length}})
     .title(v-else) {{componentList[panelKey].name}} ({{componentList[panelKey].children.length}})
     .layer-list(v-if="panelKey === 'layers'")
-      .list-item(v-for="item in layerList")
+      .list-item(
+        v-for="(item, index) in chartData.elements"
+        :class="{active: index === $parent.$parent.currentElementIndex}")
         .name 图层x
     .component-list(v-else)
       .list-item(v-for="item in componentList[panelKey].children")
@@ -108,8 +110,13 @@ export default {
           ],
         },
       },
-      layerList: [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5],
+      layerList: [],
     };
+  },
+  computed: {
+    chartData() {
+      return this.$parent.chartData;
+    },
   },
 };
 </script>
@@ -182,6 +189,10 @@ export default {
     margin-bottom: -1px;
     padding: 0 16px;
     box-sizing: border-box;
+
+    &.active {
+      background: rgba(255, 255, 255, 0.04);
+    }
 
     &:hover {
       opacity: 1;

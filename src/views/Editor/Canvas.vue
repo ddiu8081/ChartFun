@@ -13,7 +13,7 @@
         :resizable="false")
       .screen
         vue-drag-resize(
-          v-for="item in elements"
+          v-for="item in chartData.elements"
           :key="item.name"
           :isActive="true"
           :preventActiveBehavior="true"
@@ -54,6 +54,9 @@ export default {
     };
   },
   computed: {
+    chartData() {
+      return this.$parent.chartData;
+    },
     screenStyle() {
       return {
         transform: `scale(${this.scale})`,

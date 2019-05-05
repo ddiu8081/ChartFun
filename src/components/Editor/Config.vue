@@ -1,12 +1,17 @@
 <template lang="pug">
   .config
-    p Config
+    p {{chartData.elements[$parent.currentElementIndex]}}
 </template>
 
 <script>
 export default {
   data() {
     return {};
+  },
+  computed: {
+    chartData() {
+      return this.$parent.chartData;
+    },
   },
 };
 </script>
@@ -17,5 +22,6 @@ export default {
   display: flex;
   align-items: center;
   background: #1e1e1ee9;
+  color: #ffffff;
 }
 </style>
