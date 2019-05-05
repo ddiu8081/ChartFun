@@ -27,8 +27,19 @@ export default {
   },
   data() {
     return {
+      title: '',
       scale: 0.5,
     };
+  },
+  mounted() {
+    this.$http.get('/charts/1234')
+      .then((res) => {
+        const { errno, data } = res.data;
+        if (errno === 0) {
+          this.title = data.title;
+        }
+      })
+      .catch(() => {});
   },
   methods: {
     changeScale(scale) {

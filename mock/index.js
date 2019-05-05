@@ -1,7 +1,7 @@
+/* eslint-disable global-require */
 import Mock from 'mockjs';
 
-import charts from './data/charts';
-
 export default function () {
-  Mock.mock(/charts/, charts);
+  Mock.mock(/charts^/, require('./data/charts.json'));
+  Mock.mock(/charts\/1234/, require('./data/charts-1234.json'));
 }

@@ -1,6 +1,6 @@
 <template lang="pug">
   .header
-    .filename 某某电商大数据
+    .filename {{$parent.title}}
     i.btn.iconfont.icon-preview
     .publish-btn 发布
 </template>

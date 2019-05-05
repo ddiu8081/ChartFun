@@ -4,7 +4,7 @@
     //   el-button(type="primary" icon="el-icon-plus" round) 新建
     //   el-input.search(placeholder="搜索名称" prefix-icon="el-icon-search" v-model="filter")
     el-row(:gutter="36")
-      el-col(:span="6" v-for="item in chartData")
+      el-col(:span="6" v-for="item in chartData" :key="item.id")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="editThis('123456')")
           img.image(src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png")
           div(style="padding: 14px;")
@@ -24,21 +24,14 @@ export default {
     };
   },
   mounted() {
-    this.$http.get('charts', {
-      params: {
-        ID: 12345,
-      },
-    })
+    this.$http.get('/charts')
       .then((res) => {
         const { errno, data } = res.data;
         if (errno === 0) {
-          console.log(data);
           this.chartData = data.chartList;
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(() => {});
   },
   methods: {
     editThis(path) {
