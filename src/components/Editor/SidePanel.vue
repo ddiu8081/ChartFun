@@ -3,10 +3,18 @@
     .title(v-if="panelKey === 'layers'") 图层 ({{chartData.elements.length}})
     .title(v-else) {{componentList[panelKey].name}} ({{componentList[panelKey].children.length}})
     .layer-list(v-if="panelKey === 'layers'")
-      .list-item(
-        v-for="(item, index) in chartData.elements"
-        :class="{active: index === $parent.$parent.currentElementIndex}")
-        .name 图层x
+      draggable(
+        v-model="chartData.elements"
+        @start="handleLayerListDragStart"
+        @end="handleLayerListDragEnd"
+        ghost-class="ghost")
+        transition-group(type="transition" :name="!drag ? 'flip-list' : null")
+          .list-item(
+            v-for="(item, index) in chartData.elements"
+            :key="item.name"
+            @click="$parent.$parent.setActiveComponentByIndex(index)"
+            :class="{active: index === $parent.$parent.currentElementIndex}")
+            .name 图层{{item.name}}
     .component-list(v-else)
       .list-item(v-for="item in componentList[panelKey].children")
         img(:src="item.img")
@@ -14,10 +22,16 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable';
+
 export default {
   props: ['panelKey'],
+  components: {
+    draggable,
+  },
   data() {
     return {
+      drag: false,
       componentList: {
         chart: {
           name: '图表',
@@ -118,6 +132,18 @@ export default {
       return this.$parent.chartData;
     },
   },
+  methods: {
+    handleLayerListDragStart(e) {
+      this.drag = true;
+      this.$parent.$parent.setActiveComponentByIndex(e.oldIndex);
+      console.log(e);
+    },
+    handleLayerListDragEnd(e) {
+      this.drag = false;
+      this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
+      console.log(e);
+    },
+  },
 };
 </script>
 
@@ -174,6 +200,15 @@ export default {
   }
 }
 
+.flip-list-move {
+  transition: transform 0.5s;
+}
+
+.ghost {
+  opacity: 0.3;
+  background: #c8ebfb;
+}
+
 .layer-list {
   flex: 1;
   padding: 0;
@@ -192,6 +227,7 @@ export default {
 
     &.active {
       background: rgba(255, 255, 255, 0.04);
+      border-right: 6px solid #409eff7d;
     }
 
     &:hover {

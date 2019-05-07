@@ -50,6 +50,17 @@ export default {
     changeScale(scale) {
       this.scale = scale;
     },
+    setActiveComponentByIndex(index) {
+      this.currentElementIndex = index;
+      for (let i = 0; i < this.chartData.elements.length; i++) {
+        const element = this.chartData.elements[i];
+        if (index === i) {
+          element.active = true;
+        } else {
+          element.active = false;
+        }
+      }
+    }
   },
 };
 </script>

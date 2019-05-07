@@ -13,10 +13,9 @@
         :resizable="false")
       .screen
         vue-drag-resize(
-          v-for="item in chartData.elements"
-          :key="item.name"
-          :isActive="true"
-          :preventActiveBehavior="true"
+          v-for="(item, index) in chartData.elements"
+          :key="index"
+          :isActive="item.active"
           :parentScaleX="scale"
           :parentScaleY="scale"
           :x="item.x"
@@ -29,11 +28,13 @@
           :aspectRatio="false"
           :minw="20"
           :minh="20"
-          :z="100"
+          :z="index"
           :isDraggable="true"
           :isResizable="true"
-          @resizing="handleResize(item, arguments)"
-          @dragging="handleDrag(item, arguments)")
+          @activated="handleActivated(index)"
+          @resizing="handleResize(item, arguments[0])"
+          @dragging="handleDrag(item, arguments[0])")
+          div.filler(style="width:100%;height:100%;background:#666;")
 </template>
 
 <script>
@@ -70,17 +71,20 @@ export default {
     handleSpaceUp() {
       this.screenDraggable = false;
     },
-    handleResize(widget, args) {
-      const item = widget;
-      item.x = args[0].left;
-      item.y = args[0].top;
-      item.w = args[0].width;
-      item.h = args[0].height;
+    handleActivated(index) {
+      this.$parent.setActiveComponentByIndex(index);
     },
-    handleDrag(widget, args) {
+    handleResize(widget, arg) {
       const item = widget;
-      item.x = args[0].left;
-      item.y = args[0].top;
+      item.x = arg.left;
+      item.y = arg.top;
+      item.w = arg.width;
+      item.h = arg.height;
+    },
+    handleDrag(widget, arg) {
+      const item = widget;
+      item.x = arg.left;
+      item.y = arg.top;
     },
   },
 };
