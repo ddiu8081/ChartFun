@@ -1,7 +1,9 @@
 <template lang="pug">
   .panel
-    .title(v-if="panelKey === 'layers'") 图层 ({{chartData.elements.length}})
-    .title(v-else) {{componentList[panelKey].name}} ({{componentList[panelKey].children.length}})
+    .title(v-if="panelKey === 'layers'")
+      span 图层 ({{chartData.elements.length}})
+    .title(v-else-if="panelKey !== ''")
+      span {{componentList[panelKey].name}} ({{componentList[panelKey].children.length}})
     .layer-list(v-if="panelKey === 'layers'")
       draggable(
         v-model="chartData.elements"
@@ -15,7 +17,7 @@
             @click="$parent.$parent.setActiveComponentByIndex(index)"
             :class="{active: index === $parent.$parent.currentElementIndex}")
             .name 图层{{item.name}}
-    .component-list(v-else)
+    .component-list(v-else-if="panelKey !== ''")
       .list-item(v-for="item in componentList[panelKey].children")
         img(:src="item.img")
         .name {{item.name}}
