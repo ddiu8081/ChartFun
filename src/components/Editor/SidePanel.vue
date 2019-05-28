@@ -19,7 +19,8 @@
             .name 图层{{item.name}}
     .component-list(v-else-if="panelKey !== ''")
       .list-item(v-for="item in componentList[panelKey].children")
-        img(:src="item.img")
+        .img-wrapper
+          img(:src="item.img")
         .name {{item.name}}
 </template>
 
@@ -39,65 +40,65 @@ export default {
           name: '图表',
           children: [
             {
-              id: 1,
+              id: 'line',
               name: '折线图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/axis7.png',
+              img: '/img/charts/line.png',
             }, {
-              id: 2,
+              id: 'histogram',
               name: '柱状图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/axis2.png',
+              img: '/img/charts/histogram.png',
             }, {
-              id: 3,
+              id: 'bar',
               name: '条形图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/axis4.png',
+              img: '/img/charts/bar.png',
             }, {
-              id: 4,
+              id: 'pie',
               name: '饼图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/pie.png',
+              img: '/img/charts/pie.png',
             }, {
-              id: 5,
+              id: 'ring',
               name: '环状图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/ring-graph.png',
+              img: '/img/charts/ring.png',
             }, {
-              id: 6,
+              id: 'funnel',
               name: '漏斗图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/funnel.png',
+              img: '/img/charts/funnel.png',
             }, {
-              id: 7,
+              id: 'radar',
               name: '雷达图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/graph.png',
+              img: '/img/charts/radar.png',
             }, {
-              id: 8,
+              id: 'map-world',
               name: '世界地图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/map-world.png',
+              img: '/img/charts/map-world.png',
             }, {
-              id: 9,
+              id: 'map-china',
               name: '中国地图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/map-china.png',
+              img: '/img/charts/map-china.png',
             }, {
-              id: 10,
+              id: 'sankey',
               name: '桑基图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/sankey.png',
+              img: '/img/charts/sankey.png',
             }, {
-              id: 11,
+              id: 'scatter',
               name: '散点图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/scatter.png',
+              img: '/img/charts/scatter.png',
             }, {
-              id: 12,
+              id: 'candle',
               name: 'K线图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/candlestick.png',
+              img: '/img/charts/candle.png',
             }, {
-              id: 13,
+              id: 'gauge',
               name: '仪表盘',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/gauge.png',
+              img: '/img/charts/gauge.png',
             }, {
-              id: 14,
+              id: 'liquidfill',
               name: '水球图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/liquidfill.png',
+              img: '/img/charts/liquidfill.png',
             }, {
-              id: 15,
+              id: 'wordcloud',
               name: '词云图',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/word-cloud.png',
+              img: '/img/charts/wordcloud.png',
             },
           ],
         },
@@ -105,9 +106,9 @@ export default {
           name: '文本',
           children: [
             {
-              id: 1,
+              id: 'text',
               name: '文本',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/text.png',
+              img: '/img/charts/text.png',
             },
           ],
         },
@@ -119,9 +120,9 @@ export default {
           name: '组件',
           children: [
             {
-              id: 1,
+              id: 'border',
               name: '边框',
-              img: 'http://ys.kwcnet.com/datav-h5/static/assets/thumbnails/border2.png',
+              img: '/img/charts/border.png',
             },
           ],
         },
@@ -188,9 +189,15 @@ export default {
       }
     }
 
-    img {
-      width: 90px;
-      height: 90px;
+    .img-wrapper {
+      display: flex;
+      width: 100%;
+      height: 80px;
+      align-items: center;
+      justify-content: center;
+      img {
+        height: 54px;
+      }
     }
 
     .name {
