@@ -5,13 +5,16 @@
     @keyup.space.prevent="handleSpaceUp")
     vue-draggable-resizable(
         :style="screenStyle"
+        :x="50"
+        :y="50"
         :w="1920"
         :h="1080"
         class-name="screen-box"
         class-name-draggable="screen-box-draggable"
         :draggable="screenDraggable"
         :resizable="false")
-      .screen
+      .mock(:class="{front: screenDraggable}")
+      .screen(@click.self="handleActivated(-1)")
         vue-drag-resize(
           v-for="(item, index) in chartData.elements"
           :key="index"
@@ -38,7 +41,7 @@
             ve-chart(
               :width="item.w + 'px'"
               :height="item.h + 'px'"
-              :data="item.data.data" 
+              :data="item.data.data"
               :settings="item.data.settings")
 </template>
 
@@ -68,6 +71,7 @@ export default {
       this.screenDraggable = false;
     },
     handleActivated(index) {
+      console.log(index);
       this.$parent.setActiveComponentByIndex(index);
     },
     handleResize(widget, arg) {
@@ -99,6 +103,7 @@ export default {
 .screen-box {
   // width: 1220px;
   // height: 400px;
+  position: relative;
   background: #999;
   transform-origin: 0 0;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
@@ -113,5 +118,19 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.mock {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: -1;
+
+  &.front {
+    z-index: 999;
+  }
 }
 </style>
