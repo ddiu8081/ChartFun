@@ -67,7 +67,8 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #1e1e1ee9;
+  background: #ffffffe9;
+  border-right: 1px solid rgba(0, 0, 0, 0.02);
 
   .tool-list {
     flex: 1;
@@ -84,11 +85,11 @@ export default {
     color: #999;
     &:hover {
       cursor: pointer;
-      background-color: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
+      background-color: rgba(64, 160, 255, 0.1);
+      color: #666666;
     }
     &.active {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(64, 160, 255, 0.1);
       color: #409EFF;
     }
     .iconfont {

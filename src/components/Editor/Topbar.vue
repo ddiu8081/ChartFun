@@ -23,7 +23,7 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  background: #1e1e1ee9;
+  background: #333333ee;
   padding: 0 20px;
 }
 

@@ -26,6 +26,7 @@
 
 <script>
 import draggable from 'vuedraggable';
+/* eslint-disable */
 
 export default {
   props: ['panelKey'],
@@ -42,63 +43,63 @@ export default {
             {
               id: 'line',
               name: '折线图',
-              img: '/img/charts/line.png',
+              img: require('@/assets/img/charts/line.png'),
             }, {
               id: 'histogram',
               name: '柱状图',
-              img: '/img/charts/histogram.png',
+              img: require('@/assets/img/charts/histogram.png'),
             }, {
               id: 'bar',
               name: '条形图',
-              img: '/img/charts/bar.png',
+              img: require('@/assets/img/charts/bar.png'),
             }, {
               id: 'pie',
               name: '饼图',
-              img: '/img/charts/pie.png',
+              img: require('@/assets/img/charts/pie.png'),
             }, {
               id: 'ring',
               name: '环状图',
-              img: '/img/charts/ring.png',
+              img: require('@/assets/img/charts/ring.png'),
             }, {
               id: 'funnel',
               name: '漏斗图',
-              img: '/img/charts/funnel.png',
+              img: require('@/assets/img/charts/funnel.png'),
             }, {
               id: 'radar',
               name: '雷达图',
-              img: '/img/charts/radar.png',
+              img: require('@/assets/img/charts/radar.png'),
             }, {
               id: 'map-world',
               name: '世界地图',
-              img: '/img/charts/map-world.png',
+              img: require('@/assets/img/charts/map-world.png'),
             }, {
               id: 'map-china',
               name: '中国地图',
-              img: '/img/charts/map-china.png',
+              img: require('@/assets/img/charts/map-china.png'),
             }, {
               id: 'sankey',
               name: '桑基图',
-              img: '/img/charts/sankey.png',
+              img: require('@/assets/img/charts/sankey.png'),
             }, {
               id: 'scatter',
               name: '散点图',
-              img: '/img/charts/scatter.png',
+              img: require('@/assets/img/charts/scatter.png'),
             }, {
               id: 'candle',
               name: 'K线图',
-              img: '/img/charts/candle.png',
+              img: require('@/assets/img/charts/candle.png'),
             }, {
               id: 'gauge',
               name: '仪表盘',
-              img: '/img/charts/gauge.png',
+              img: require('@/assets/img/charts/gauge.png'),
             }, {
               id: 'liquidfill',
               name: '水球图',
-              img: '/img/charts/liquidfill.png',
+              img: require('@/assets/img/charts/liquidfill.png'),
             }, {
               id: 'wordcloud',
               name: '词云图',
-              img: '/img/charts/wordcloud.png',
+              img: require('@/assets/img/charts/wordcloud.png'),
             },
           ],
         },
@@ -108,7 +109,7 @@ export default {
             {
               id: 'text',
               name: '文本',
-              img: '/img/charts/text.png',
+              img: require('@/assets/img/charts/text.png'),
             },
           ],
         },
@@ -122,7 +123,7 @@ export default {
             {
               id: 'border',
               name: '边框',
-              img: '/img/charts/border.png',
+              img: require('@/assets/img/charts/border.png'),
             },
           ],
         },
@@ -156,7 +157,8 @@ export default {
   width: 250px;
   display: flex;
   flex-direction: column;
-  background: #1e1e1ee9;
+  background: #ffffffe9;
+  box-shadow: 4px 0 4px #00000005;
 }
 .title {
   color: #999999;
@@ -170,10 +172,10 @@ export default {
   .list-item {
     display: inline-block;
     width: 100px;
-    background: rgba(255, 255, 255, 0.04);
+    background: #fff;
     margin-right: 10px;
     margin-bottom: 12px;
-    opacity: 0.8;
+    opacity: 0.6;
     transition: opacity,background 0.3s ease;
     border: 1px solid transparent;
     text-align: center;
@@ -181,11 +183,11 @@ export default {
 
     &:hover {
       cursor: pointer;
-      opacity: 1;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.8;
+      background: rgba(64, 160, 255, 0.1);
+      border: 1px solid #409EFF;
       .name {
-        color: #999999;
+        color: #666666;
       }
     }
 
@@ -228,23 +230,20 @@ export default {
     width: 100%;
     line-height: 48px;
     transition: background 0.3s ease;
-    border-top: 1px solid rgba(255, 255, 255, 0.02);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
     margin-bottom: -1px;
     padding: 0 16px;
     box-sizing: border-box;
 
     &.active {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(64, 160, 255, 0.06);
       border-right: 6px solid #409eff7d;
     }
 
     &:hover {
       opacity: 1;
-      background: rgba(255, 255, 255, 0.04);
-      .name {
-        color: #999999;
-      }
+      background: rgba(64, 160, 255, 0.06);
     }
 
     .name {

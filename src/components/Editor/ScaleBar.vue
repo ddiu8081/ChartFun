@@ -43,7 +43,8 @@ export default {
   border-radius: 8px;
   display: flex;
   align-items: center;
-  background: #1e1e1ecc;
+  background: #ffffffe9;
+  border: 1px solid #cccccc;
 }
 
 .control-bar {
@@ -52,7 +53,7 @@ export default {
   align-items: center;
   text-align: center;
   height: 32px;
-  color: #aaaaaa;
+  color: #666666;
   padding: 0 6px;
 
   .btn {
@@ -65,8 +66,8 @@ export default {
 
     &:hover {
       cursor: pointer;
-      background-color: #333333;
-      color: #ffffff;
+      background-color: #dddddd;
+      color: #333333;
     }
   }
 

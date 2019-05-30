@@ -32,8 +32,16 @@ export default {
       chartData: {
         elements: [],
       },
-      currentElementIndex: 1,
+      currentElementIndex: -1,
     };
+  },
+  computed: {
+    currentElement() {
+      if (this.currentElementIndex >= 0) {
+        return this.chartData.elements[this.currentElementIndex];
+      }
+      return {};
+    },
   },
   mounted() {
     this.$http.get('/charts/1234')
@@ -52,7 +60,7 @@ export default {
     },
     setActiveComponentByIndex(index) {
       this.currentElementIndex = index;
-      for (let i = 0; i < this.chartData.elements.length; i++) {
+      for (let i = 0; i < this.chartData.elements.length; i += 1) {
         const element = this.chartData.elements[i];
         if (index === i) {
           element.active = true;
@@ -60,7 +68,7 @@ export default {
           element.active = false;
         }
       }
-    }
+    },
   },
 };
 </script>
@@ -104,7 +112,7 @@ export default {
 }
 
 .main-view {
-  background: #1e1e1e;
+  background: #eeeeee;
   padding: 60px 300px 0 50px;
   overflow: hidden;
   height: calc(100vh - 60px);

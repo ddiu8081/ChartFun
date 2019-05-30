@@ -1,6 +1,9 @@
 <template lang="pug">
-  .config
-    p {{chartData.elements[$parent.currentElementIndex]}}
+  .component-config(v-show="this.$parent.currentElement")
+    el-form(ref="form" :model="currentElement" label-width="80px")
+      el-form-item(label="控件名称")
+        el-input(v-model="currentElement.name")
+    p {{currentElement}}
 </template>
 
 <script>
@@ -9,19 +12,18 @@ export default {
     return {};
   },
   computed: {
-    chartData() {
-      return this.$parent.chartData;
+    currentElement() {
+      return this.$parent.currentElement;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.config {
+.component-config {
   height: 100%;
-  display: flex;
-  align-items: center;
-  background: #1e1e1ee9;
-  color: #ffffff;
+  background: #ffffffe9;
+  color: #515151;
+  box-shadow: -4px 0 4px #00000005;
 }
 </style>
