@@ -1,10 +1,10 @@
 <template lang="pug">
   .component-config(v-show="this.$parent.currentElement")
     el-form(ref="form" :model="currentElement" label-width="70px")
-      .config-box 
+      .config-box
         .title 控件名称
         el-input(v-model="currentElement.name")
-      .config-box 
+      .config-box
         .title 组件位置
         el-row(:gutter="20")
           el-col(:span="12")
@@ -20,7 +20,10 @@
           el-col(:span="12")
             el-input(v-model.number="currentElement.h")
               template(slot="prepend") h
-      .config-box 
+      .config-box
+        .title 背景颜色
+        el-color-picker(v-model="currentElement.bgcolor" show-alpha)
+      .config-box
         .title Settings.json
         pre(v-html="formatedJSON")
 </template>

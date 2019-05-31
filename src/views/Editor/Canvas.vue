@@ -37,7 +37,7 @@
           @activated="handleActivated(index)"
           @resizing="handleResize(item, arguments[0])"
           @dragging="handleDrag(item, arguments[0])")
-          div.filler(style="width:100%;height:100%;background:#666;")
+          div.filler(:style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
             ve-chart(
               :width="item.w + 'px'"
               :height="item.h + 'px'"
@@ -117,6 +117,9 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  .vdr {
+    border: 0;
+  }
 }
 
 .mock {

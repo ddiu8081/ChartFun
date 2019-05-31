@@ -11,6 +11,7 @@
           "y": 100,
           "w": 492,
           "h": 308,
+          "bgcolor": "rgba(19, 206, 102, 0.8)",
           "active": false,
           "data": {
             "type": "chart",
@@ -35,6 +36,7 @@
           "y": 320,
           "w": 400,
           "h": 160,
+          "bgcolor": "rgba(0, 206, 255, 0.3)",
           "active": false,
           "data": {
             "type": "chart",
