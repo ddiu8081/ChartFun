@@ -4,6 +4,9 @@
   "data": {
     "title": "某某大屏",
     "chartData": {
+      "w": 1200,
+      "h": 800,
+      "bgcolor": "#eeeeee",
       "elements": [
         {
           "name": "keykey1",

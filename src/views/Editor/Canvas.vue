@@ -2,19 +2,19 @@
   .edit-view(
     tabindex="0"
     @keydown.space.prevent="handleSpaceDown"
-    @keyup.space.prevent="handleSpaceUp")
+    @keyup.space.prevent="handleSpaceUp"
+    @click.self="handleActivated(-1)")
     vue-draggable-resizable(
-        :style="screenStyle"
+        :style="wrapStyle"
         :x="50"
         :y="50"
-        :w="1920"
-        :h="1080"
+        :w="chartData.w"
+        :h="chartData.h"
         class-name="screen-box"
         class-name-draggable="screen-box-draggable"
         :draggable="screenDraggable"
         :resizable="false")
-      .mock(:class="{front: screenDraggable}")
-      .screen(@click.self="handleActivated(-1)")
+      .screen(:style="screenStyle" @click.self="handleActivated(-1)")
         vue-drag-resize(
           v-for="(item, index) in chartData.elements"
           :key="index"
@@ -26,8 +26,8 @@
           :w="item.w"
           :h="item.h"
           :parentLimitation="true"
-          :parentW="1920"
-          :parentH="1080"
+          :parentW="chartData.w"
+          :parentH="chartData.h"
           :aspectRatio="false"
           :minw="20"
           :minh="20"
@@ -43,6 +43,7 @@
               :height="item.h + 'px'"
               :data="item.data.data"
               :settings="item.data.settings")
+        .mock(:class="{front: screenDraggable}")
 </template>
 
 <script>
@@ -57,9 +58,14 @@ export default {
     chartData() {
       return this.$parent.chartData;
     },
-    screenStyle() {
+    wrapStyle() {
       return {
         transform: `scale(${this.scale})`,
+      };
+    },
+    screenStyle() {
+      return {
+        backgroundColor: this.$parent.chartData.bgcolor,
       };
     },
   },
@@ -103,7 +109,7 @@ export default {
   // width: 1220px;
   // height: 400px;
   position: relative;
-  background: #999;
+  background: #ffffff;
   transform-origin: 0 0;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
   transition: transform 0.5s ease;

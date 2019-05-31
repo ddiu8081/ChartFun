@@ -1,6 +1,23 @@
 <template lang="pug">
-  .component-config(v-show="this.$parent.currentElement")
-    el-form(ref="form" :model="currentElement" label-width="70px")
+  .config
+    .public-config(v-show="!currentElement.w")
+      .config-box
+        .title 组件位置
+        el-row(:gutter="20")
+          el-col(:span="12")
+            el-input.num-input(v-model.number="chartData.w")
+              template(slot="prepend") w
+          el-col(:span="12")
+            el-input(v-model.number="chartData.h")
+              template(slot="prepend") h
+      .config-box
+        .title 背景配置
+        el-row(:gutter="20")
+          el-col(:span="4")
+            el-color-picker(v-model="chartData.bgcolor")
+          el-col(:span="20")
+            el-input(v-model="chartData.bgcolor" readonly)
+    .component-config(v-show="currentElement.w")
       .config-box
         .title 控件名称
         el-input(v-model="currentElement.name")
@@ -38,6 +55,9 @@ export default {
     return {};
   },
   computed: {
+    chartData() {
+      return this.$parent.chartData;
+    },
     currentElement() {
       return this.$parent.currentElement;
     },
@@ -49,10 +69,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.component-config {
+.config {
   position: absolute;
   top: 0;
   bottom: 0;
+  left: 0;
+  right: 0;
   background: #ffffffe9;
   color: #515151;
   box-shadow: -4px 0 4px #00000005;
