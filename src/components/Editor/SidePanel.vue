@@ -16,7 +16,8 @@
             :key="item.name"
             @click="$parent.$parent.setActiveComponentByIndex(index)"
             :class="{active: index === $parent.$parent.currentElementIndex}")
-            .name 图层{{item.name}}
+            .name {{item.name}}
+            i.el-icon-delete.icon(@click="handleDeleteComponent(index)")
     .component-list(v-else-if="panelKey !== ''")
       .list-item(v-for="item in componentList[panelKey].children" @click="handleAddComponent(item)")
         .img-wrapper
@@ -160,16 +161,14 @@ export default {
     handleLayerListDragStart(e) {
       this.drag = true;
       this.$parent.$parent.setActiveComponentByIndex(e.oldIndex);
-      console.log(e);
     },
     handleLayerListDragEnd(e) {
       this.drag = false;
       this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
-      console.log(e);
     },
     handleAddComponent(item) {
       const component = {
-        name: "新建图层" + this.chartData.elements.length + 1,
+        name: "新建图层" + (this.chartData.elements.length + 1),
         x: 10,
         y: 10,
         w: 400,
@@ -195,6 +194,9 @@ export default {
         }
       };
       this.$parent.$parent.addComponent(component);
+    },
+    handleDeleteComponent(index) {
+      this.$parent.$parent.deleteComponent(index);
     }
   }
 };
@@ -275,12 +277,14 @@ export default {
   overflow: scroll;
 
   .list-item {
+    display: flex;
+    align-items: center;
     height: 48px;
     width: 100%;
-    line-height: 48px;
     transition: background 0.3s ease;
     border-top: 1px solid rgba(0, 0, 0, 0.03);
     border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    border-right: 6px solid transparent;
     margin-bottom: -1px;
     padding: 0 16px;
     box-sizing: border-box;
@@ -293,10 +297,28 @@ export default {
     &:hover {
       opacity: 1;
       background: rgba(64, 160, 255, 0.06);
+
+      .icon {
+        opacity: 1;
+      }
     }
 
     .name {
+      flex: 1;
       color: #777777;
+    }
+
+    .icon {
+      float: right;
+      color: #999999;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        color: #409eff;
+        cursor: pointer;
+      }
     }
   }
 }

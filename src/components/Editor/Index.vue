@@ -71,7 +71,10 @@ export default {
     },
     addComponent(data) {
       this.chartData.elements.unshift(data);
-    }
+    },
+    deleteComponent(index) {
+      this.chartData.elements.splice(index, 1);
+    },
   },
 };
 </script>
