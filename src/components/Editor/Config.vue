@@ -22,10 +22,14 @@
               template(slot="prepend") h
       .config-box
         .title 背景颜色
-        el-color-picker(v-model="currentElement.bgcolor" show-alpha)
+        el-row(:gutter="20")
+          el-col(:span="4")
+            el-color-picker(v-model="currentElement.bgcolor" show-alpha)
+          el-col(:span="20")
+            el-input(v-model="currentElement.bgcolor" readonly)
       .config-box
         .title Settings.json
-        pre(v-html="formatedJSON")
+        pre.code-box(v-html="formatedJSON")
 </template>
 
 <script>
@@ -75,5 +79,15 @@ export default {
   .el-input-group__prepend {
     background-color: #ffffff !important;
   }
+}
+
+.code-box {
+  width: 260px;
+  max-height: 200px;
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  padding: 6px;
+  overflow: scroll;
+  box-sizing: border-box;
 }
 </style>
