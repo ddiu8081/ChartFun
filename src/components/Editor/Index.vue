@@ -69,6 +69,9 @@ export default {
         }
       }
     },
+    addComponent(data) {
+      this.chartData.elements.unshift(data);
+    }
   },
 };
 </script>

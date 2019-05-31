@@ -18,123 +18,143 @@
             :class="{active: index === $parent.$parent.currentElementIndex}")
             .name 图层{{item.name}}
     .component-list(v-else-if="panelKey !== ''")
-      .list-item(v-for="item in componentList[panelKey].children")
+      .list-item(v-for="item in componentList[panelKey].children" @click="handleAddComponent(item)")
         .img-wrapper
           img(:src="item.img")
         .name {{item.name}}
 </template>
 
 <script>
-import draggable from 'vuedraggable';
+import draggable from "vuedraggable";
 /* eslint-disable */
 
 export default {
-  props: ['panelKey'],
+  props: ["panelKey"],
   components: {
-    draggable,
+    draggable
   },
   data() {
     return {
       drag: false,
       componentList: {
         chart: {
-          name: '图表',
+          name: "图表",
           children: [
             {
-              id: 'line',
-              name: '折线图',
-              img: require('@/assets/img/charts/line.png'),
-            }, {
-              id: 'histogram',
-              name: '柱状图',
-              img: require('@/assets/img/charts/histogram.png'),
-            }, {
-              id: 'bar',
-              name: '条形图',
-              img: require('@/assets/img/charts/bar.png'),
-            }, {
-              id: 'pie',
-              name: '饼图',
-              img: require('@/assets/img/charts/pie.png'),
-            }, {
-              id: 'ring',
-              name: '环状图',
-              img: require('@/assets/img/charts/ring.png'),
-            }, {
-              id: 'funnel',
-              name: '漏斗图',
-              img: require('@/assets/img/charts/funnel.png'),
-            }, {
-              id: 'radar',
-              name: '雷达图',
-              img: require('@/assets/img/charts/radar.png'),
-            }, {
-              id: 'map-world',
-              name: '世界地图',
-              img: require('@/assets/img/charts/map-world.png'),
-            }, {
-              id: 'map-china',
-              name: '中国地图',
-              img: require('@/assets/img/charts/map-china.png'),
-            }, {
-              id: 'sankey',
-              name: '桑基图',
-              img: require('@/assets/img/charts/sankey.png'),
-            }, {
-              id: 'scatter',
-              name: '散点图',
-              img: require('@/assets/img/charts/scatter.png'),
-            }, {
-              id: 'candle',
-              name: 'K线图',
-              img: require('@/assets/img/charts/candle.png'),
-            }, {
-              id: 'gauge',
-              name: '仪表盘',
-              img: require('@/assets/img/charts/gauge.png'),
-            }, {
-              id: 'liquidfill',
-              name: '水球图',
-              img: require('@/assets/img/charts/liquidfill.png'),
-            }, {
-              id: 'wordcloud',
-              name: '词云图',
-              img: require('@/assets/img/charts/wordcloud.png'),
+              id: "line",
+              name: "折线图",
+              img: require("@/assets/img/charts/line.png")
             },
-          ],
+            {
+              id: "histogram",
+              name: "柱状图",
+              img: require("@/assets/img/charts/histogram.png")
+            },
+            {
+              id: "bar",
+              name: "条形图",
+              img: require("@/assets/img/charts/bar.png")
+            },
+            {
+              id: "pie",
+              name: "饼图",
+              img: require("@/assets/img/charts/pie.png")
+            },
+            {
+              id: "ring",
+              name: "环状图",
+              img: require("@/assets/img/charts/ring.png")
+            },
+            {
+              id: "funnel",
+              name: "漏斗图",
+              img: require("@/assets/img/charts/funnel.png")
+            },
+            {
+              id: "radar",
+              name: "雷达图",
+              img: require("@/assets/img/charts/radar.png")
+            },
+            {
+              id: "map-world",
+              name: "世界地图",
+              img: require("@/assets/img/charts/map-world.png")
+            },
+            {
+              id: "map-china",
+              name: "中国地图",
+              img: require("@/assets/img/charts/map-china.png")
+            },
+            {
+              id: "sankey",
+              name: "桑基图",
+              img: require("@/assets/img/charts/sankey.png")
+            },
+            {
+              id: "scatter",
+              name: "散点图",
+              img: require("@/assets/img/charts/scatter.png")
+            },
+            {
+              id: "candle",
+              name: "K线图",
+              img: require("@/assets/img/charts/candle.png")
+            },
+            {
+              id: "gauge",
+              name: "仪表盘",
+              img: require("@/assets/img/charts/gauge.png")
+            },
+            {
+              id: "liquidfill",
+              name: "水球图",
+              img: require("@/assets/img/charts/liquidfill.png")
+            },
+            {
+              id: "wordcloud",
+              name: "词云图",
+              img: require("@/assets/img/charts/wordcloud.png")
+            }
+          ]
         },
         text: {
-          name: '文本',
+          name: "文本",
           children: [
             {
-              id: 'text',
-              name: '文本',
-              img: require('@/assets/img/charts/text.png'),
-            },
-          ],
+              id: "text",
+              name: "文本",
+              img: require("@/assets/img/charts/text.png")
+            }
+          ]
         },
         picture: {
-          name: '图片',
-          children: [],
-        },
-        tools: {
-          name: '组件',
+          name: "图片",
           children: [
             {
-              id: 'border',
-              name: '边框',
-              img: require('@/assets/img/charts/border.png'),
-            },
-          ],
+              id: "image",
+              name: "图片",
+              img: require("@/assets/img/charts/image.png")
+            }
+          ]
         },
+        tools: {
+          name: "组件",
+          children: [
+            {
+              id: "border",
+              name: "边框",
+              img: require("@/assets/img/charts/border.png")
+            }
+          ]
+        }
       },
-      layerList: [],
+      layerList: []
     };
   },
   computed: {
     chartData() {
       return this.$parent.chartData;
-    },
+    }
   },
   methods: {
     handleLayerListDragStart(e) {
@@ -147,7 +167,36 @@ export default {
       this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
       console.log(e);
     },
-  },
+    handleAddComponent(item) {
+      const component = {
+        name: "新建图层" + this.chartData.elements.length + 1,
+        x: 10,
+        y: 10,
+        w: 400,
+        h: 200,
+        bgcolor: "rgba(0, 0, 0, 0)",
+        active: false,
+        data: {
+          type: "chart",
+          settings: {
+            type: item.id,
+          },
+          data: {
+            columns: ["日期", "访问用户"],
+            rows: [
+              { 日期: "1月1日", 访问用户: 1523 },
+              { 日期: "1月2日", 访问用户: 1223 },
+              { 日期: "1月3日", 访问用户: 2123 },
+              { 日期: "1月4日", 访问用户: 4123 },
+              { 日期: "1月5日", 访问用户: 3123 },
+              { 日期: "1月6日", 访问用户: 7123 }
+            ]
+          }
+        }
+      };
+      this.$parent.$parent.addComponent(component);
+    }
+  }
 };
 </script>
 
@@ -172,12 +221,12 @@ export default {
   .list-item {
     display: inline-block;
     width: 100px;
-    background: #fff;
+    background: rgba(64, 160, 255, 0.06);
+    border: 1px solid rgba(64, 160, 255, 0.1);
     margin-right: 10px;
     margin-bottom: 12px;
     opacity: 0.6;
-    transition: opacity,background 0.3s ease;
-    border: 1px solid transparent;
+    transition: opacity, background 0.3s ease;
     text-align: center;
     padding: 5px 0;
 
@@ -185,7 +234,7 @@ export default {
       cursor: pointer;
       opacity: 0.8;
       background: rgba(64, 160, 255, 0.1);
-      border: 1px solid #409EFF;
+      border: 1px solid #409eff;
       .name {
         color: #666666;
       }
