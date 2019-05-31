@@ -230,8 +230,8 @@ export default {
     width: 100%;
     line-height: 48px;
     transition: background 0.3s ease;
-    border-top: 1px solid rgba(0, 0, 0, 0.02);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     margin-bottom: -1px;
     padding: 0 16px;
     box-sizing: border-box;

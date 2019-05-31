@@ -72,6 +72,7 @@ export default {
 
   .tool-list {
     flex: 1;
+    margin-top: 4px;
   }
 
   .btn {

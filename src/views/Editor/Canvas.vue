@@ -71,7 +71,6 @@ export default {
       this.screenDraggable = false;
     },
     handleActivated(index) {
-      console.log(index);
       this.$parent.setActiveComponentByIndex(index);
     },
     handleResize(widget, arg) {
