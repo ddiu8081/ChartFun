@@ -9,9 +9,11 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "echarts": "^4.2.1",
-    "element-ui": "^2.7.0",
+    "element-ui": "^2.9.1",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
     "mockjs": "^1.0.1-beta3",
     "v-charts": "^1.19.0",
     "vue": "^2.6.6",
