@@ -32,6 +32,7 @@
                 img.bg-preview(:src="imageUrl")
               i.el-icon-plus.avatar-uploader-icon(v-else)
     .component-config(v-show="currentElement.w")
+      .panel
       .config-box
         .title 控件名称
         el-input(v-model="currentElement.name")

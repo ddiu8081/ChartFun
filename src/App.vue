@@ -4,6 +4,8 @@
 </template>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Molengo|Noto+Sans+SC|Noto+Serif+SC|Ubuntu|Ubuntu+Mono');
+
 body {
   margin: 0;
   padding: 0;

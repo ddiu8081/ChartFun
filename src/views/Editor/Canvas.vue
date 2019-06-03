@@ -6,7 +6,7 @@
     @click.self="handleActivated(-1)")
     vue-draggable-resizable(
         :style="wrapStyle"
-        :x="50"
+        :x="100"
         :y="50"
         :w="chartData.w"
         :h="chartData.h"

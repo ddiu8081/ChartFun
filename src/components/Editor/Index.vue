@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       title: '',
-      scale: 0.5,
+      scale: 0.7,
       chartData: {
         elements: [],
       },
