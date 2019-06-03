@@ -2,7 +2,7 @@
   .config
     .public-config(v-show="!currentElement.w")
       .config-box
-        .title 组件位置
+        .title 画布大小
         el-row(:gutter="20")
           el-col(:span="12")
             el-input.num-input(v-model.number="chartData.w")
@@ -32,36 +32,49 @@
                 img.bg-preview(:src="imageUrl")
               i.el-icon-plus.avatar-uploader-icon(v-else)
     .component-config(v-show="currentElement.w")
-      .panel
-      .config-box
-        .title 控件名称
-        el-input(v-model="currentElement.name")
-      .config-box
-        .title 组件位置
-        el-row(:gutter="20")
-          el-col(:span="12")
-            el-input(v-model.number="currentElement.x")
-              template(slot="prepend") x
-          el-col(:span="12")
-            el-input(v-model.number="currentElement.y")
-              template(slot="prepend") y
-        el-row(:gutter="20" style="margin-top: 4px;")
-          el-col(:span="12")
-            el-input(v-model.number="currentElement.w")
-              template(slot="prepend") w
-          el-col(:span="12")
-            el-input(v-model.number="currentElement.h")
-              template(slot="prepend") h
-      .config-box
-        .title 背景颜色
-        el-row(:gutter="20")
-          el-col(:span="4")
-            el-color-picker(v-model="currentElement.bgcolor" show-alpha)
-          el-col(:span="20")
-            el-input(v-model="currentElement.bgcolor" readonly)
-      .config-box
-        .title Settings.json
-        pre.code-box(v-html="formatedJSON")
+      .panel-selector
+        .radio-group
+          .radio-btn(@click="thisKey='general'" :class="{active: thisKey=='general'}") 基础
+          .radio-btn(@click="thisKey='data'" :class="{active: thisKey=='data'}") 数据
+      .panel(v-show="thisKey=='general'")
+        .config-box
+          .title 控件名称
+          el-input(v-model="currentElement.name")
+        .config-box
+          .title 组件位置
+          el-row(:gutter="20")
+            el-col(:span="12")
+              el-input(v-model.number="currentElement.x")
+                template(slot="prepend") x
+            el-col(:span="12")
+              el-input(v-model.number="currentElement.y")
+                template(slot="prepend") y
+          el-row(:gutter="20" style="margin-top: 4px;")
+            el-col(:span="12")
+              el-input(v-model.number="currentElement.w")
+                template(slot="prepend") w
+            el-col(:span="12")
+              el-input(v-model.number="currentElement.h")
+                template(slot="prepend") h
+        .config-box
+          .title 背景颜色
+          el-row(:gutter="20")
+            el-col(:span="4")
+              el-color-picker(v-model="currentElement.bgcolor" show-alpha)
+            el-col(:span="20")
+              el-input(v-model="currentElement.bgcolor" readonly)
+        .config-box
+          .title Settings.json
+          pre.code-box(v-html="formatedJSON")
+      .panel(v-show="thisKey=='data'")
+        .config-box
+          .title 数据配置
+          el-select(v-model="editorSettings.parentBg" placeholder="请选择" style="width: 100%; margin-bottom: 10px;")
+            el-option(label="JSON" :value="0")
+            el-option(label="我的数据源" :value="1")
+            el-option(label="表格数据" :value="2")
+            el-option(label="GET接口" :value="3")
+          el-input(v-model="currentElement.data" type="textarea" :rows="10" placeholder="请插入标准 JSON 文件")
 </template>
 
 <script>
@@ -72,6 +85,7 @@ export default {
         parentBg: 0, // 0代表背景颜色，1代表背景图片
       },
       imageUrl: '',
+      thisKey: 'general',
     };
   },
   computed: {
@@ -108,21 +122,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.config {
+.config, .component-config {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
   background: #ffffffe9;
   color: #515151;
   box-shadow: -4px 0 4px #00000005;
   padding: 0;
+  overflow: hidden;
+}
+
+.public-config, .component-config .panel {
+  flex: 1;
   overflow-y: scroll;
 }
 
-.el-form-item {
-  margin-bottom: 14px;
+.panel-selector {
+  z-index: 100;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.06);
+  .radio-group {
+    text-align: center;
+    .radio-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 0 10px;
+      color: #999999;
+      &.active {
+        color: #212121;
+        border-bottom: 2px solid #212121;
+      }
+    }
+  }
 }
 
 .config-box {

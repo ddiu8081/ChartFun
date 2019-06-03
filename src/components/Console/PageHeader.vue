@@ -3,7 +3,7 @@
     .page-title
       span {{pageTitle}}
     .icon-row
-      el-badge.icon.item(is-dot :hidden="true")
+      //- el-badge.icon.item(is-dot :hidden="true")
         i.el-icon-bell
     .avatar-image
 </template>
@@ -48,6 +48,8 @@ export default {
     height: 32px;
     background: #ccc;
     border-radius: 50%;
+    background-image: url('../../assets/img/profile.jpg');
+    background-size: 32px;
   }
 }
 </style>

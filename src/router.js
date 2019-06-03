@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -11,6 +11,9 @@ export default new Router({
       path: '/',
       name: 'index',
       component: () => import('./views/Index.vue'),
+      meta: {
+        title: 'ChartFun | 一站式数据大屏制作平台',
+      },
     },
     {
       path: '/console',
@@ -21,6 +24,13 @@ export default new Router({
           component: () => import('./views/Console/Data.vue'),
           meta: {
             title: '数据管理',
+          },
+        },
+        {
+          path: 'data/add',
+          component: () => import('./views/Console/DataAdd.vue'),
+          meta: {
+            title: '添加数据源',
           },
         },
         {
@@ -51,3 +61,13 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
+  next();
+});
+
+export default router;

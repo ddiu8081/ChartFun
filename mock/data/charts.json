@@ -5,15 +5,48 @@
     "chartList": [
       {
         "id": 1,
-        "title": "1234",
+        "title": "某某电商可视化平台",
+        "img": "https://image.ddiu.site/img/20190603211609.png",
         "timestamp": "1234123412"
       }, {
         "id": 2,
-        "title": "5567",
+        "title": "某某金融大数据",
+        "img": "https://image.ddiu.site/img/20190603221132.png",
         "timestamp": "1234123412"
       }, {
         "id": 3,
-        "title": "8890",
+        "title": "金融数据概览",
+        "img": "https://image.ddiu.site/img/20190603221218.png",
+        "timestamp": "1234123412"
+      }, {
+        "id": 4,
+        "title": "集团数据监控平台",
+        "img": "https://image.ddiu.site/img/20190603221708.png",
+        "timestamp": "1234123412"
+      }, {
+        "id": 5,
+        "title": "校园无线大数据监控平台",
+        "img": "https://image.ddiu.site/img/20190603221800.png",
+        "timestamp": "1234123412"
+      }, {
+        "id": 6,
+        "title": "大屏展示方案",
+        "img": "https://image.ddiu.site/img/20190603221850.png",
+        "timestamp": "1234123412"
+      }, {
+        "id": 7,
+        "title": "我国大数据市场产值图",
+        "img": "https://image.ddiu.site/img/20190603221316.png",
+        "timestamp": "1234123412"
+      }, {
+        "id": 8,
+        "title": "某某产品用户分布图",
+        "img": "https://image.ddiu.site/img/20190603221455.png",
+        "timestamp": "1234123412"
+      }, {
+        "id": 9,
+        "title": "金融数据概览",
+        "img": "https://image.ddiu.site/img/20190603221218.png",
         "timestamp": "1234123412"
       }
     ]

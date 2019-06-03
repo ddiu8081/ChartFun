@@ -6,7 +6,7 @@
     el-row(:gutter="36")
       el-col(:span="6" v-for="item in chartData" :key="item.id")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="editThis('123456')")
-          img.image(src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png")
+          img.image(:src="item.img")
           div(style="padding: 14px;")
             span {{item.title}}
       el-col(:span="6")
@@ -60,14 +60,20 @@ export default {
 .el-card {
   margin-bottom: 36px;
 
+  .image {
+    width: 100%;
+    height: 150px;
+    display: block;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
   &:hover {
     cursor: pointer;
+    .image {
+      opacity: 0.8;
+    }
   }
-}
-
-.image {
-  width: 100%;
-  display: block;
 }
 
 .el-card .add-card {
