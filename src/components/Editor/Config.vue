@@ -21,16 +21,23 @@
           el-col(:span="20")
             el-input(v-model="chartData.bgcolor" readonly)
         el-row(:gutter="20" style="margin-top: 12px;" v-show="editorSettings.parentBg === 1")
-          el-col(:span="8")
+          el-col(:span="24")
             el-upload(
               class="bg-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="http://localhost:3000/uploadfile/"
               :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload")
-              .bg-preview-wrapper(v-if="imageUrl")
-                img.bg-preview(:src="imageUrl")
+              :on-success="handleScreenBgUploadSuccess"
+              :before-upload="beforeUpload")
+              .bg-preview-wrapper(v-if="chartData.bgimage")
+                img.bg-preview(:src="chartData.bgimage")
               i.el-icon-plus.avatar-uploader-icon(v-else)
+          el-col(:span="24" v-show="chartData.bgimage")
+            el-select(v-model="chartData.bgimagesize" placeholder="请选择" style="width: 100%")
+              el-option(label="覆盖" value="cover")
+              el-option(label="平铺" value="contain")
+              el-option(label="拉伸" value="100% 100%")
+          el-col(:span="24" v-show="chartData.bgimage" style="margin-top: 16px")
+            el-button(type="danger" plain @click="handleScreenBgDelete" style="width: 100%") 删除
     .component-config(v-show="currentElement.w")
       .panel-selector
         .radio-group
@@ -90,8 +97,8 @@ export default {
     return {
       editorSettings: {
         parentBg: 0, // 0代表背景颜色，1代表背景图片
+        parentBgUrl: '',
       },
-      imageUrl: '',
       thisKey: 'general',
     };
   },
@@ -107,12 +114,13 @@ export default {
     },
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      console.log(res);
-      console.log(file);
-      this.imageUrl = URL.createObjectURL(file.raw);
+    handleScreenBgUploadSuccess(res, file) {
+      // console.log(res);
+      this.chartData.bgimage = res.url;
+      // console.log(file);
+      // this.imageUrl = URL.createObjectURL(file.raw);
     },
-    beforeAvatarUpload(file) {
+    beforeUpload(file) {
       const isPic = file.type === 'image/jpeg' || file.type === 'image/png';
       const isLt4M = file.size / 1024 / 1024 < 4;
 
@@ -124,6 +132,9 @@ export default {
       }
       return isPic && isLt4M;
     },
+    handleScreenBgDelete() {
+      this.chartData.bgimage = '';
+    }
   },
 };
 </script>

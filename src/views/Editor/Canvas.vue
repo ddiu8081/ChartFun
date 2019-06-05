@@ -65,7 +65,9 @@ export default {
     },
     screenStyle() {
       return {
-        backgroundColor: this.$parent.chartData.bgcolor,
+        backgroundColor: this.chartData.bgcolor,
+        backgroundImage: `url(${this.chartData.bgimage})`,
+        backgroundSize: this.chartData.bgimagesize,
       };
     },
   },

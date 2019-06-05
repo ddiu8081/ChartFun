@@ -7,6 +7,8 @@
       "w": 1200,
       "h": 800,
       "bgcolor": "#eeeeee",
+      "bgimage": "",
+      "bgimagesize": "cover",
       "elements": [
         {
           "name": "keykey1",
