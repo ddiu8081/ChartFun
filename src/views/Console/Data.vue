@@ -2,6 +2,7 @@
   div
     el-row(style="margin-bottom: 20px;")
       el-button(type="primary" @click="addData") 新增数据源
+      span(@click="addRow" style="opacity: 0") 新增数据源
     el-table(:data="tableData")
       el-table-column(prop="id" label="id")
       el-table-column(prop="name" label="名称")
@@ -38,6 +39,13 @@ export default {
     addData() {
       this.$router.push('data/add');
     },
+    addRow() {
+      this.tableData.push({
+          id: 4,
+          name: '金融交易数据',
+          date: '2019-06-04',
+        })
+    }
   },
 };
 </script>

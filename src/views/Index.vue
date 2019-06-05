@@ -6,7 +6,11 @@
       transition(name="slide-fade")
         .login-box(v-if="show")
           el-input(placeholder="请输入学号或工号" v-model="form.user")
-          el-input(placeholder="请输入密码" type="password" v-model="form.password" style="margin-top: 10px;")
+          el-input(
+            placeholder="请输入密码"
+            type="password"
+            v-model="form.password"
+            style="margin-top: 10px;")
       .btn-wrapper
         span.btn(@click="handleClick") 进入系统
 </template>
@@ -18,8 +22,8 @@ export default {
       show: false,
       form: {
         user: 'admin',
-        password: ''
-      }
+        password: '',
+      },
     };
   },
   mounted() {

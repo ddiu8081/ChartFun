@@ -69,12 +69,19 @@
       .panel(v-show="thisKey=='data'")
         .config-box
           .title 数据配置
-          el-select(v-model="editorSettings.parentBg" placeholder="请选择" style="width: 100%; margin-bottom: 10px;")
+          el-select(
+            v-model="editorSettings.parentBg"
+            placeholder="请选择"
+            style="width: 100%; margin-bottom: 10px;")
             el-option(label="JSON" :value="0")
             el-option(label="我的数据源" :value="1")
             el-option(label="表格数据" :value="2")
             el-option(label="GET接口" :value="3")
-          el-input(v-model="currentElement.data" type="textarea" :rows="10" placeholder="请插入标准 JSON 文件")
+          el-input(
+            v-model="currentElement.data"
+            type="textarea"
+            :rows="10"
+            placeholder="请插入标准 JSON 文件")
 </template>
 
 <script>

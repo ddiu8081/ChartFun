@@ -13,6 +13,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Topbar from './Topbar.vue';
 import Toolbar from './Toolbar.vue';
 import Config from './Config.vue';
