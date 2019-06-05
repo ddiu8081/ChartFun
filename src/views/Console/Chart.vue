@@ -4,13 +4,13 @@
     //   el-button(type="primary" icon="el-icon-plus" round) 新建
     //   el-input.search(placeholder="搜索名称" prefix-icon="el-icon-search" v-model="filter")
     el-row(:gutter="36")
-      el-col(:span="6" v-for="item in chartData" :key="item.id")
-        el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="editThis('123456')")
+      el-col(:span="6" v-for="item in chartData" :key="item._id")
+        el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="editChart(item._id)")
           img.image(:src="item.img")
           div(style="padding: 14px;")
             span {{item.title}}
       el-col(:span="6")
-        el-card(:body-style="{ padding: '0px' }" shadow="hover")
+        el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="addNewChart")
           .add-card
             i.el-icon-circle-plus
 </template>
@@ -20,24 +20,53 @@ export default {
   data() {
     return {
       chartData: [],
-      filter: '',
+      filter: ""
     };
   },
   mounted() {
-    this.$http.get('/charts')
-      .then((res) => {
-        const { errno, data } = res.data;
-        if (errno === 0) {
-          this.chartData = data.chartList;
-        }
-      })
-      .catch(() => {});
+    this.getData();
   },
   methods: {
-    editThis(path) {
-      this.$router.push(`/edit/${path}`);
+    getData() {
+      this.$http
+        .get("/chart")
+        .then(res => {
+          const { errno, data } = res.data;
+          if (errno === 0) {
+            this.chartData = data.chartList;
+          }
+        })
+        .catch(() => {});
     },
-  },
+    editChart(id) {
+      this.$router.push(`/edit/${id}`);
+    },
+    addNewChart() {
+      this.$prompt("输入大屏标题", "创建大屏项目", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+      })
+        .then(({ value }) => {
+          this.$http
+            .post("/chart", {
+              title: value
+            })
+            .then(res => {
+              const { errno, data } = res.data;
+              if (errno === 0) {
+                this.$message({
+                  type: "success",
+                  message: "创建成功"
+                });
+                // this.getData();
+                this.editChart(data._id);
+              }
+            })
+            .catch(() => {});
+        })
+        .catch(() => {});
+    }
+  }
 };
 </script>
 

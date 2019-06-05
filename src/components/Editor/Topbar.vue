@@ -2,7 +2,7 @@
   .header
     .filename {{$parent.title}}
     i.btn.iconfont.icon-preview
-    .publish-btn 发布
+    .publish-btn(@click="saveChartData") 发布
 </template>
 
 <script>
@@ -13,6 +13,11 @@ export default {
   computed: {
     pageTitle() {
       return this.$route.meta.title;
+    },
+  },
+  methods: {
+    saveChartData() {
+      this.$parent.saveChartData();
     },
   },
 };
@@ -45,7 +50,7 @@ export default {
   color: #aaa;
   &:hover {
     cursor: pointer;
-    background-color: #444444;
+    background-color: #666666;
     color: #ffffff;
   }
   .iconfont {
@@ -64,7 +69,7 @@ export default {
 
   &:hover {
     cursor: pointer;
-    background: #444444;
+    background: #666666;
   }
 }
 </style>

@@ -10,10 +10,10 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import http from './http';
-import initMock from '../mock';
+// import initMock from '../mock';
 
 // 需要 mock 数据时请打开注释
-initMock();
+// initMock();
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = http;

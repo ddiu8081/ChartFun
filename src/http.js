@@ -25,10 +25,10 @@ const instance = axios.create({
 });
 
 // 请求地址
-instance.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+instance.defaults.baseURL = 'http://localhost:3000';
 
-// 设置post请求头
-instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// // 设置post请求头
+// instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 // 请求拦截器
 instance.interceptors.request.use(

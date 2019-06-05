@@ -24,7 +24,7 @@
           el-col(:span="24")
             el-upload(
               class="bg-uploader"
-              action="http://localhost:3000/uploadfile/"
+              action="http://localhost:3000/api/uploadfile/"
               :show-file-list="false"
               :on-success="handleScreenBgUploadSuccess"
               :before-upload="beforeUpload")

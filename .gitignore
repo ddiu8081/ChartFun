@@ -22,3 +22,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# ChartFun uploads
+/server/public/upload/*

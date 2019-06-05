@@ -45,7 +45,7 @@ export default {
     },
   },
   mounted() {
-    this.$http.get('/charts/1234')
+    this.$http.get('/chart/' + this.$route.params.id)
       .then((res) => {
         const { errno, data } = res.data;
         if (errno === 0) {
@@ -75,6 +75,21 @@ export default {
     },
     deleteComponent(index) {
       this.chartData.elements.splice(index, 1);
+    },
+    saveChartData() {
+      this.$http.put('/chart/' + this.$route.params.id, {
+        chartData: this.chartData,
+      })
+        .then((res) => {
+          const { errno, data } = res.data;
+          if (errno === 0) {
+            this.$message({
+              type: "success",
+              message: "保存成功"
+            });
+          }
+        })
+        .catch(() => {});
     },
   },
 };
