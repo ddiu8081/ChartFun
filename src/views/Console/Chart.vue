@@ -9,6 +9,13 @@
           img.image(:src="item.img")
           div(style="padding: 14px;")
             span {{item.title}}
+            el-dropdown(style="float: right;")
+              i.el-icon-more
+              el-dropdown-menu(slot="dropdown")
+                el-dropdown-item(@click.native="editChart(item._id)") 编辑
+                el-dropdown-item(@click.native="renameChart(item._id)") 重命名
+                el-dropdown-item(@click.native="deleteChart(item._id)") 删除
+                el-dropdown-item(@click.native="editChart(item._id)" divided) 查看统计
       el-col(:span="6")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="addNewChart")
           .add-card
@@ -42,21 +49,21 @@ export default {
       this.$router.push(`/edit/${id}`);
     },
     addNewChart() {
-      this.$prompt("输入大屏标题", "创建大屏项目", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$prompt('输入大屏标题', '创建大屏项目', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
       })
         .then(({ value }) => {
           this.$http
-            .post("/chart", {
+            .post('/chart', {
               title: value
             })
             .then(res => {
               const { errno, data } = res.data;
               if (errno === 0) {
                 this.$message({
-                  type: "success",
-                  message: "创建成功"
+                  type: 'success',
+                  message: '创建成功'
                 });
                 // this.getData();
                 this.editChart(data._id);
@@ -65,7 +72,53 @@ export default {
             .catch(() => {});
         })
         .catch(() => {});
-    }
+    },
+    renameChart(id) {
+      this.$prompt('输入大屏标题', '重命名', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      })
+        .then(({ value }) => {
+          this.$http
+            .put(`/chart/${id}`, {
+              title: value
+            })
+            .then(res => {
+              const { errno, data } = res.data;
+              if (errno === 0) {
+                this.$message({
+                  type: 'success',
+                  message: '保存成功'
+                });
+                this.getData();
+                // this.editChart(data._id);
+              }
+            })
+            .catch(() => {});
+        })
+        .catch(() => {});
+    },
+    deleteChart(id) {
+      this.$confirm('是否删除大屏项目？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http
+          .delete(`/chart/${id}`)
+          .then(res => {
+            const { errno, data } = res.data;
+            if (errno === 0) {
+              this.$message({
+                type: "success",
+                message: "已删除"
+              });
+              this.getData();
+              // this.editChart(data._id);
+            }
+          });
+      }).catch(() => {});
+    },
   }
 };
 </script>

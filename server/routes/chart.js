@@ -61,9 +61,24 @@ router.put('/:id', async (ctx, next) => {
   const body = ctx.request.body;
 
   const item = await chartModel.findById(ctx.params.id);
-  item.chartData = body.chartData;
+  if (body.title) {
+    item.title = body.title;
+  } else if (body.chartData) {
+    item.chartData = body.chartData;
+  }
   item.save();
-  // chartModel.update({ _id: ctx.params.id }, { $set: { size: 'large' }}, callback);
+
+  ctx.body = {
+    errno: 0,
+  }
+});
+
+// 删除可视化图表
+router.delete('/:id', async (ctx, next) => {
+  const body = ctx.request.body;
+
+  const item = await chartModel.findById(ctx.params.id);
+  item.remove();
 
   ctx.body = {
     errno: 0,
