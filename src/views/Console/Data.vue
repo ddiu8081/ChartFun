@@ -2,50 +2,89 @@
   div
     el-row(style="margin-bottom: 20px;")
       el-button(type="primary" @click="addData") 新增数据源
-      span(@click="addRow" style="opacity: 0") 新增数据源
-    el-table(:data="tableData")
-      el-table-column(prop="id" label="id")
+    el-table(:data="connectList")
+      el-table-column(prop="_id" label="id")
       el-table-column(prop="name" label="名称")
-      el-table-column(prop="date" label="上传时间")
+      el-table-column(prop="createdAt" label="上传时间")
       el-table-column(label="操作")
         template(slot-scope="scope")
-          el-button(type="text" size="small") 删除
+          el-button(type="text" size="small" @click="renameData(scope.row)") 重命名
+          el-button(type="text" size="small" @click="deleteData(scope.row._id)") 删除
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   data() {
     return {
-      tableData: [
-        {
-          id: 1,
-          name: '某电商平台第一季度营业额',
-          date: '2019-05-02',
-        },
-        {
-          id: 2,
-          name: '某电商平台第二季度营业额',
-          date: '2019-05-03',
-        },
-        {
-          id: 3,
-          name: '某学校101班学生成绩',
-          date: '2019-05-10',
-        },
-      ],
+      connectList: [],
     };
   },
+  mounted() {
+    this.getData();
+  },
   methods: {
+    getData() {
+      this.$http
+        .get("/connect")
+        .then(res => {
+          const { errno, data } = res.data;
+          if (errno === 0) {
+            this.connectList = data.connectList;
+          }
+        })
+        .catch(() => {});
+    },
     addData() {
       this.$router.push('data/add');
     },
-    addRow() {
-      this.tableData.push({
-          id: 4,
-          name: '金融交易数据',
-          date: '2019-06-04',
+    renameData(row) {
+      this.$prompt('输入大屏标题', '重命名', {
+        inputValue: row.name,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      })
+        .then(({ value }) => {
+          this.$http
+            .put(`/connect/${row._id}`, {
+              name: value
+            })
+            .then(res => {
+              const { errno, data } = res.data;
+              if (errno === 0) {
+                this.$message({
+                  type: 'success',
+                  message: '保存成功'
+                });
+                this.getData();
+                // this.editChart(data._id);
+              }
+            })
+            .catch(() => {});
         })
-    }
+        .catch(() => {});
+    },
+    deleteData(id) {
+      this.$confirm('是否删除当前数据源？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http
+          .delete(`/connect/${id}`)
+          .then(res => {
+            const { errno, data } = res.data;
+            if (errno === 0) {
+              this.$message({
+                type: "success",
+                message: "已删除"
+              });
+              this.getData();
+              // this.editChart(data._id);
+            }
+          });
+      }).catch(() => {});
+    },
   },
 };
 </script>

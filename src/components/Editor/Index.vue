@@ -91,6 +91,21 @@ export default {
         })
         .catch(() => {});
     },
+    generateData(item) {
+      if (item.data.datacon.type == 'raw') {
+        item.data.generated = item.data.datacon.data
+      } else if (item.data.datacon.type == 'connect') {
+        this.$http.get('/connect/' + item.data.datacon.connectId)
+          .then((res) => {
+            const { errno, data } = res.data;
+            if (errno === 0) {
+              // console.log(data.data);
+              item.data.generated = data.data;
+            }
+          })
+          .catch(() => {});
+      }
+    },
   },
 };
 </script>

@@ -11,6 +11,7 @@ const koaStatic = require('koa-static');
 const apiRouter = require('./routes/api');
 const userRouter = require('./routes/user');
 const chartRouter = require('./routes/chart');
+const connectRouter = require('./routes/connect');
 
 const app = new Koa();
 // 解析 POST 请求
@@ -47,5 +48,6 @@ router.get('/', (ctx, next) => {
 app.use(apiRouter.routes()).use(apiRouter.allowedMethods());
 app.use(userRouter.routes()).use(userRouter.allowedMethods());
 app.use(chartRouter.routes()).use(chartRouter.allowedMethods());
+app.use(connectRouter.routes()).use(connectRouter.allowedMethods());
 app.use(router.routes()).use(router.allowedMethods());
 app.listen(3000);

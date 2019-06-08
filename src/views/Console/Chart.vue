@@ -1,10 +1,7 @@
 <template lang="pug">
   div
-    // .page-header-slot
-    //   el-button(type="primary" icon="el-icon-plus" round) 新建
-    //   el-input.search(placeholder="搜索名称" prefix-icon="el-icon-search" v-model="filter")
     el-row(:gutter="36")
-      el-col(:span="6" v-for="item in chartData" :key="item._id")
+      el-col(:span="6" v-for="item in chartList" :key="item._id")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="editChart(item._id)")
           img.image(:src="item.img")
           div(style="padding: 14px;")
@@ -13,7 +10,7 @@
               i.el-icon-more
               el-dropdown-menu(slot="dropdown")
                 el-dropdown-item(@click.native="editChart(item._id)") 编辑
-                el-dropdown-item(@click.native="renameChart(item._id)") 重命名
+                el-dropdown-item(@click.native="renameChart(item)") 重命名
                 el-dropdown-item(@click.native="deleteChart(item._id)") 删除
                 el-dropdown-item(@click.native="editChart(item._id)" divided) 查看统计
       el-col(:span="6")
@@ -23,10 +20,11 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   data() {
     return {
-      chartData: [],
+      chartList: [],
       filter: ""
     };
   },
@@ -40,7 +38,7 @@ export default {
         .then(res => {
           const { errno, data } = res.data;
           if (errno === 0) {
-            this.chartData = data.chartList;
+            this.chartList = data.chartList;
           }
         })
         .catch(() => {});
@@ -73,15 +71,16 @@ export default {
         })
         .catch(() => {});
     },
-    renameChart(id) {
+    renameChart(row) {
       this.$prompt('输入大屏标题', '重命名', {
+        inputValue: row.title,
         confirmButtonText: '确定',
         cancelButtonText: '取消',
       })
         .then(({ value }) => {
           this.$http
-            .put(`/chart/${id}`, {
-              title: value
+            .put(`/chart/${row._id}`, {
+              name: value
             })
             .then(res => {
               const { errno, data } = res.data;

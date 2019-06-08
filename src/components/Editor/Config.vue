@@ -1,6 +1,6 @@
 <template lang="pug">
   .config
-    .public-config(v-show="!currentElement.w")
+    .public-config(v-if="!currentElement.w")
       .config-box
         .title 画布大小
         el-row(:gutter="20")
@@ -38,7 +38,7 @@
               el-option(label="拉伸" value="100% 100%")
           el-col(:span="24" v-show="chartData.bgimage" style="margin-top: 16px")
             el-button(type="danger" plain @click="handleScreenBgDelete" style="width: 100%") 删除
-    .component-config(v-show="currentElement.w")
+    .component-config(v-if="currentElement.w")
       .panel-selector
         .radio-group
           .radio-btn(@click="thisKey='general'" :class="{active: thisKey=='general'}") 基础
@@ -77,22 +77,43 @@
         .config-box
           .title 数据配置
           el-select(
-            v-model="editorSettings.parentBg"
+            v-model="currentElement.data.datacon.type"
             placeholder="请选择"
+            @change="handleChartDataChange"
             style="width: 100%; margin-bottom: 10px;")
-            el-option(label="JSON" :value="0")
-            el-option(label="我的数据源" :value="1")
-            el-option(label="表格数据" :value="2")
-            el-option(label="GET接口" :value="3")
-          el-input(
-            v-model="currentElement.data"
+            el-option(label="静态JSON" value="raw")
+            el-option(label="我的数据源" value="connect")
+            el-option(label="表格数据" value="table")
+            el-option(label="GET接口" value="get")
+          //- el-input(
+            v-model="currentElement.data.datacon.data"
             type="textarea"
             :rows="10"
-            placeholder="请插入标准 JSON 文件")
+            placeholder="请插入标准 JSON 文件"
+            v-show="currentElement.data.datacon.type == 'raw'")
+          vue-json-editor(
+            v-if="currentElement.data.datacon.type == 'raw'"
+            v-model="currentElement.data.datacon.data"
+            mode="code"
+            :show-btns="true"
+            @json-save="handleChartDataChange")
+          el-select(
+            v-if="currentElement.data.datacon.type == 'connect'"
+            v-model="currentElement.data.datacon.connectId"
+            placeholder="请选择"
+            @change="handleChartDataChange"
+            style="width: 100%; margin-bottom: 10px;")
+            el-option(v-for="item in connectList" :label="item.name" :value="item._id")
 </template>
 
 <script>
+/* eslint-disable */
+import vueJsonEditor from 'vue-json-editor'
+
 export default {
+  components: {
+    vueJsonEditor
+  },
   data() {
     return {
       editorSettings: {
@@ -100,6 +121,7 @@ export default {
         parentBgUrl: '',
       },
       thisKey: 'general',
+      connectList: [],
     };
   },
   computed: {
@@ -112,6 +134,17 @@ export default {
     formatedJSON() {
       return JSON.stringify(this.$parent.currentElement, null, 2);
     },
+  },
+  mounted() {
+    this.$http
+      .get("/connect")
+      .then(res => {
+        const { errno, data } = res.data;
+        if (errno === 0) {
+          this.connectList = data.connectList;
+        }
+      })
+      .catch(() => {});
   },
   methods: {
     handleScreenBgUploadSuccess(res, file) {
@@ -134,7 +167,10 @@ export default {
     },
     handleScreenBgDelete() {
       this.chartData.bgimage = '';
-    }
+    },
+    handleChartDataChange() {
+      this.$parent.generateData(this.currentElement);
+    },
   },
 };
 </script>
@@ -187,6 +223,10 @@ export default {
     font-size: 0.86rem;
     margin-bottom: 12px;
   }
+}
+
+.component-config /deep/ .jsoneditor-menu {
+  display: none;
 }
 
 .num-input {

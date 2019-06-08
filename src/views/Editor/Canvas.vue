@@ -41,12 +41,14 @@
             ve-chart(
               :width="item.w + 'px'"
               :height="item.h + 'px'"
-              :data="item.data.data"
-              :settings="item.data.settings")
+              :data="item.data.generated"
+              :settings="item.data.settings"
+              @ready-once="generateData(item)")
         .mock(:class="{front: screenDraggable}")
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   props: ['scale'],
   data() {
@@ -93,6 +95,9 @@ export default {
       item.x = arg.left;
       item.y = arg.top;
     },
+    generateData(item) {
+      this.$parent.generateData(item);
+    }
   },
 };
 </script>
