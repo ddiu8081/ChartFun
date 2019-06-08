@@ -6,6 +6,7 @@ import VCharts from 'v-charts';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/font/iconfont.css';
+import dayjs from 'dayjs';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -17,8 +18,10 @@ import http from './http';
 
 Vue.config.productionTip = false;
 Vue.prototype.$http = http;
+Vue.prototype.$dayjs = dayjs;
 Vue.use(VCharts);
 Vue.use(ElementUI);
+Vue.use(dayjs);
 Vue.component('vue-draggable-resizable', VueDraggableResizable);
 Vue.component('vue-drag-resize', VueDragResize);
 

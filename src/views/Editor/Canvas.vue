@@ -14,7 +14,7 @@
         class-name-draggable="screen-box-draggable"
         :draggable="screenDraggable"
         :resizable="false")
-      .screen(:style="screenStyle" @click.self="handleActivated(-1)")
+      .screen(:style="screenStyle" @click.self="handleActivated(-1)" ref="screen")
         vue-drag-resize(
           v-for="(item, index) in chartData.elements"
           :key="index"

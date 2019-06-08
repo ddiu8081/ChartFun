@@ -4,8 +4,12 @@
       el-button(type="primary" @click="addData") 新增数据源
     el-table(:data="connectList")
       el-table-column(prop="_id" label="id")
+        template(slot-scope="scope")
+          span {{ scope.row._id | simplifyID }}
       el-table-column(prop="name" label="名称")
       el-table-column(prop="createdAt" label="上传时间")
+        template(slot-scope="scope")
+          span {{ $dayjs(scope.row.createdAt).format('YYYY-MM-DD hh:mm') }}
       el-table-column(label="操作")
         template(slot-scope="scope")
           el-button(type="text" size="small" @click="renameData(scope.row)") 重命名
@@ -22,6 +26,11 @@ export default {
   },
   mounted() {
     this.getData();
+  },
+  filters: {
+    simplifyID(id) {
+      return id.slice(-6);
+    }
   },
   methods: {
     getData() {

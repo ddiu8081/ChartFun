@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "axios": "^0.18.1",
+    "dayjs": "^1.8.14",
     "echarts": "^4.2.1",
     "element-ui": "^2.9.1",
+    "html2canvas": "^1.0.0-rc.3",
     "jsoneditor": "^5.34.0",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",

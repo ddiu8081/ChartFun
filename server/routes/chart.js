@@ -65,6 +65,7 @@ router.put('/:id', async (ctx, next) => {
     item.title = body.title;
   } else if (body.chartData) {
     item.chartData = body.chartData;
+    item.img = body.img;
   }
   item.save();
 

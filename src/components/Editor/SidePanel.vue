@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import draggable from "vuedraggable";
+import draggable from 'vuedraggable';
 /* eslint-disable */
 
 export default {

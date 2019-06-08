@@ -9,7 +9,7 @@
     .scale-view
       ScaleBar(@update:scale="changeScale")
     .main-view
-      router-view(:scale="scale")
+      router-view(:scale="scale" ref="screenContainer")
 </template>
 
 <script>
@@ -18,6 +18,7 @@ import Topbar from './Topbar.vue';
 import Toolbar from './Toolbar.vue';
 import Config from './Config.vue';
 import ScaleBar from './ScaleBar.vue';
+import html2canvas from 'html2canvas';
 
 export default {
   components: {
@@ -77,19 +78,22 @@ export default {
       this.chartData.elements.splice(index, 1);
     },
     saveChartData() {
-      this.$http.put('/chart/' + this.$route.params.id, {
-        chartData: this.chartData,
-      })
-        .then((res) => {
-          const { errno, data } = res.data;
-          if (errno === 0) {
-            this.$message({
-              type: "success",
-              message: "保存成功"
-            });
-          }
+      const screenshot = this.generateScreenShot().then(url => {
+        this.$http.put('/chart/' + this.$route.params.id, {
+          img: url,
+          chartData: this.chartData,
         })
-        .catch(() => {});
+          .then((res) => {
+            const { errno, data } = res.data;
+            if (errno === 0) {
+              this.$message({
+                type: "success",
+                message: "保存成功"
+              });
+            }
+          })
+          .catch(() => {});
+      });
     },
     generateData(item) {
       if (item.data.datacon.type == 'raw') {
@@ -106,6 +110,18 @@ export default {
           .catch(() => {});
       }
     },
+    generateScreenShot() {
+      let that = this;
+      return new Promise(function(resolve, reject) {
+        let screenRef = that.$refs['screenContainer'].$refs['screen'];
+        html2canvas(screenRef, {
+          backgroundColor: '#142E48'
+        }).then((canvas) => {
+          let dataURL = canvas.toDataURL("image/png");
+          resolve(dataURL);
+        })
+      })
+    }
   },
 };
 </script>
