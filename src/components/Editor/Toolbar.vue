@@ -76,6 +76,7 @@ export default {
   }
 
   .btn {
+    display: inline-block;
     width: 40px;
     height: 40px;
     line-height: 40px;

@@ -119,7 +119,58 @@
           el-input(
             v-model="currentElement.data.datacon.text"
             type="textarea"
-            :rows="5")
+            :rows="5"
+            style="margin-bottom: 10px;")
+        .config-box
+          .title 字体字号
+          el-select(
+            v-model="currentElement.data.datacon.fontFamily"
+            placeholder="请选择"
+            style="width: 100%; margin-bottom: 10px;")
+            el-option-group(label="英文字体")
+              el-option(label="Molengo" value="Molengo")
+                span(:style="{fontFamily: 'Molengo'}") Molengo
+              el-option(label="Lobster" value="Lobster")
+                span(:style="{fontFamily: 'Lobster'}") Lobster
+            el-option-group(label="中文字体")
+              el-option(label="思源黑体" value="Noto Sans SC")
+                span(:style="{fontFamily: 'Noto Sans SC'}") 思源黑体
+              el-option(label="思源宋体" value="Noto Serif SC")
+                span(:style="{fontFamily: 'Noto Serif SC'}") 思源宋体
+              el-option(label="站酷庆科黄油体" value="ZCOOL QingKe HuangYou")
+                span(:style="{fontFamily: 'ZCOOL QingKe HuangYou'}") 站酷庆科黄油体
+              el-option(label="站酷小薇体" value="ZCOOL XiaoWei")
+                span(:style="{fontFamily: 'ZCOOL XiaoWei'}") 站酷小薇体
+          el-row(:gutter="20")
+            el-col(:span="4")
+              el-color-picker(v-model="currentElement.data.datacon.color" show-alpha)
+            el-col(:span="20")
+              el-input(v-model="currentElement.data.datacon.fontSize")
+                template(slot="append") px
+          el-row(:gutter="20")
+            el-col(:span="24")
+              .btn(:class="{active: currentElement.data.datacon.bold}" @click="currentElement.data.datacon.bold = !currentElement.data.datacon.bold")
+                i.iconfont.icon-bold
+              .btn(:class="{active: currentElement.data.datacon.italic}" @click="currentElement.data.datacon.italic = !currentElement.data.datacon.italic")
+                i.iconfont.icon-italic
+        .config-box
+          .title 描边
+            el-switch(v-model="currentElement.data.datacon.stroke" style="float: right;")
+          el-row(:gutter="20" v-show="currentElement.data.datacon.stroke")
+            el-col(:span="4")
+              el-color-picker(v-model="currentElement.data.datacon.strokeColor")
+            el-col(:span="20")
+              el-input(v-model="currentElement.data.datacon.strokeSize")
+                template(slot="append") px
+        .config-box
+          .title 阴影
+            el-switch(v-model="currentElement.data.datacon.shadow" style="float: right;")
+          el-row(:gutter="20" v-show="currentElement.data.datacon.shadow")
+            el-col(:span="4")
+              el-color-picker(v-model="currentElement.data.datacon.shadowColor")
+            el-col(:span="20")
+              el-input(v-model="currentElement.data.datacon.shadowBlur")
+                template(slot="append") px
 </template>
 
 <script>
@@ -238,6 +289,28 @@ export default {
     font-weight: bold;
     font-size: 0.86rem;
     margin-bottom: 12px;
+  }
+  .btn {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    margin: 5px 5px 5px 0;
+    text-align: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: #999;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(64, 160, 255, 0.1);
+      color: #666666;
+    }
+    &.active {
+      background-color: rgba(64, 160, 255, 0.1);
+      color: #409EFF;
+    }
+    .iconfont {
+      font-size: 22px;
+    }
   }
 }
 

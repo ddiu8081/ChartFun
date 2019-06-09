@@ -49,7 +49,9 @@
           div.filler(
             v-if="item.data.type == 'text'"
             :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
-            p {{item.data.datacon.text}}
+            div.textcontainer(
+              :style="{fontFamily: item.data.datacon.fontFamily, fontWeight: item.data.datacon.bold ? 'bold' : 'normal', fontStyle: item.data.datacon.italic ? 'italic' : 'normal', color: item.data.datacon.color, fontSize: item.data.datacon.fontSize + 'px', textStroke: item.data.datacon.stroke ? item.data.datacon.strokeSize+'px '+item.data.datacon.strokeColor : '0', textShadow: item.data.datacon.shadow ? '5px 5px '+item.data.datacon.shadowBlur+'px '+item.data.datacon.shadowColor : 'none'}"
+              v-text="item.data.datacon.text")
         .mock(:class="{front: screenDraggable}")
 </template>
 
@@ -138,6 +140,11 @@ export default {
   height: 100%;
   .vdr {
     border: 0;
+  }
+  .filler {
+    .textcontainer {
+      word-wrap: break-word;
+    }
   }
 }
 

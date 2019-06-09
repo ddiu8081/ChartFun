@@ -5,7 +5,7 @@ import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
 import VCharts from 'v-charts';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import './assets/font/iconfont.css';
+// import './assets/font/iconfont.css';
 import dayjs from 'dayjs';
 import App from './App.vue';
 import router from './router';
