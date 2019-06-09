@@ -41,8 +41,17 @@
     .component-config(v-if="currentElement.w")
       .panel-selector
         .radio-group
-          .radio-btn(@click="thisKey='general'" :class="{active: thisKey=='general'}") 基础
-          .radio-btn(@click="thisKey='data'" :class="{active: thisKey=='data'}") 数据
+          .radio-btn(
+            @click="thisKey='general'"
+            :class="{active: thisKey=='general'}") 基础
+          .radio-btn(
+            @click="thisKey='data'"
+            v-show="currentElement.data.type == 'chart'"
+            :class="{active: thisKey=='data'}") 数据
+          .radio-btn(
+            @click="thisKey='data'"
+            v-show="currentElement.data.type == 'text'"
+            :class="{active: thisKey=='data'}") 文字
       .panel(v-show="thisKey=='general'")
         .config-box
           .title 控件名称
@@ -73,7 +82,7 @@
         .config-box
           .title Settings.json
           pre.code-box(v-html="formatedJSON")
-      .panel(v-show="thisKey=='data'")
+      .panel(v-show="thisKey=='data' && currentElement.data.type == 'chart'")
         .config-box
           .title 数据配置
           el-select(
@@ -104,6 +113,13 @@
             @change="handleChartDataChange"
             style="width: 100%; margin-bottom: 10px;")
             el-option(v-for="item in connectList" :label="item.name" :value="item._id")
+      .panel(v-show="thisKey=='data' && currentElement.data.type == 'text'")
+        .config-box
+          .title 输入文本
+          el-input(
+            v-model="currentElement.data.datacon.text"
+            type="textarea"
+            :rows="5")
 </template>
 
 <script>

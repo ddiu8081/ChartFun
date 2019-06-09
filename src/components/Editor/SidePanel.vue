@@ -167,15 +167,16 @@ export default {
       this.$parent.$parent.setActiveComponentByIndex(e.newIndex);
     },
     handleAddComponent(item) {
-      const component = {
-        name: "新建图层" + (this.chartData.elements.length + 1),
-        x: 10,
-        y: 10,
-        w: 400,
-        h: 200,
-        bgcolor: "rgba(0, 0, 0, 0)",
-        active: false,
-        data: {
+      let initData = {};
+      if (item.id == 'text') {
+        initData = {
+          type: "text",
+          datacon: {
+            text: 'asdadfsdfgsg',
+          }
+        };
+      } else {
+        initData = {
           type: "chart",
           settings: {
             type: item.id,
@@ -195,8 +196,28 @@ export default {
               ]
             },
           },
-          generated: {}
-        }
+          generated: {
+            columns: ["日期", "访问用户"],
+            rows: [
+              { 日期: "1月1日", 访问用户: 1523 },
+              { 日期: "1月2日", 访问用户: 1223 },
+              { 日期: "1月3日", 访问用户: 2123 },
+              { 日期: "1月4日", 访问用户: 4123 },
+              { 日期: "1月5日", 访问用户: 3123 },
+              { 日期: "1月6日", 访问用户: 7123 }
+            ]
+          }
+        };
+      }
+      const component = {
+        name: "新建图层" + (this.chartData.elements.length + 1),
+        x: 10,
+        y: 10,
+        w: 400,
+        h: 200,
+        bgcolor: "rgba(0, 0, 0, 0)",
+        active: false,
+        data: initData
       };
       this.$parent.$parent.addComponent(component);
     },

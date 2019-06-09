@@ -9,7 +9,7 @@
       el-table-column(prop="name" label="名称")
       el-table-column(prop="createdAt" label="上传时间")
         template(slot-scope="scope")
-          span {{ $dayjs(scope.row.createdAt).format('YYYY-MM-DD hh:mm') }}
+          span {{ $dayjs(scope.row.createdAt).format('YYYY-MM-DD HH:mm') }}
       el-table-column(label="操作")
         template(slot-scope="scope")
           el-button(type="text" size="small" @click="renameData(scope.row)") 重命名
@@ -65,7 +65,9 @@ export default {
                   type: 'success',
                   message: '保存成功'
                 });
-                this.getData();
+                setTimeout(() => {
+                  this.getData();
+                }, 10);
                 // this.editChart(data._id);
               }
             })

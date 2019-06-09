@@ -37,13 +37,19 @@
           @activated="handleActivated(index)"
           @resizing="handleResize(item, arguments[0])"
           @dragging="handleDrag(item, arguments[0])")
-          div.filler(:style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+          div.filler(
+            v-if="item.data.type == 'chart'"
+            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
             ve-chart(
               :width="item.w + 'px'"
               :height="item.h + 'px'"
               :data="item.data.generated"
               :settings="item.data.settings"
               @ready-once="generateData(item)")
+          div.filler(
+            v-if="item.data.type == 'text'"
+            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+            p {{item.data.datacon.text}}
         .mock(:class="{front: screenDraggable}")
 </template>
 

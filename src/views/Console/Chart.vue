@@ -80,7 +80,7 @@ export default {
         .then(({ value }) => {
           this.$http
             .put(`/chart/${row._id}`, {
-              name: value
+              title: value
             })
             .then(res => {
               const { errno, data } = res.data;
@@ -89,7 +89,10 @@ export default {
                   type: 'success',
                   message: '保存成功'
                 });
-                this.getData();
+                setTimeout(() => {
+                  this.getData();
+                }, 10);
+
                 // this.editChart(data._id);
               }
             })
