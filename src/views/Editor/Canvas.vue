@@ -52,6 +52,18 @@
             div.textcontainer(
               :style="{fontFamily: item.data.datacon.fontFamily, fontWeight: item.data.datacon.bold ? 'bold' : 'normal', fontStyle: item.data.datacon.italic ? 'italic' : 'normal', color: item.data.datacon.color, fontSize: item.data.datacon.fontSize + 'px', textStroke: item.data.datacon.stroke ? item.data.datacon.strokeSize+'px '+item.data.datacon.strokeColor : '0', textShadow: item.data.datacon.shadow ? '5px 5px '+item.data.datacon.shadowBlur+'px '+item.data.datacon.shadowColor : 'none'}"
               v-text="item.data.datacon.text")
+          div.filler(
+            v-if="item.data.type == 'image'"
+            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+            div.imagecontainer(
+              :style="{backgroundImage: `url(${item.data.datacon.img})`, backgroundSize: item.data.datacon.imgSize, opacity: item.data.datacon.opacity}")
+              .placeholder(v-show="!item.data.datacon.img")
+          div.filler(
+            v-if="item.data.type == 'border'"
+            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+            div.bordercontainer(
+              :class="'border' + item.data.datacon.borderId"
+              :style="{opacity: item.data.datacon.opacity}")
         .mock(:class="{front: screenDraggable}")
 </template>
 
@@ -144,6 +156,32 @@ export default {
   .filler {
     .textcontainer {
       word-wrap: break-word;
+    }
+    .imagecontainer {
+      width: 100%;
+      height: 100%;
+      .placeholder {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+    .bordercontainer {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      &.border1 {
+        border: 50px solid transparent;
+        border-image: url('./../../assets/img/borders/1.png') 50;
+      }
+      &.border2 {
+        border: 50px solid transparent;
+        border-image: url('./../../assets/img/borders/2.png') 50;
+      }
+      &.border3 {
+        border: 50px solid transparent;
+        border-image: url('./../../assets/img/borders/3.png') 50;
+      }
     }
   }
 }

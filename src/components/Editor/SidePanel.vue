@@ -183,7 +183,24 @@ export default {
             strokeSize: 2,
             shadow: false,
             shadowColor: '#ff0000',
-            shadowBlur: 10
+            shadowBlur: 10,
+          }
+        };
+      } else if (item.id == 'image') {
+        initData = {
+          type: "image",
+          datacon: {
+            img: '',
+            imgSize: 'cover',
+            opacity: 1,
+          }
+        };
+      } else if (item.id == 'border') {
+        initData = {
+          type: "border",
+          datacon: {
+            borderId: 1,
+            opacity: 1,
           }
         };
       } else {

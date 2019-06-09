@@ -90,7 +90,9 @@ export default {
                 type: "success",
                 message: "已删除"
               });
-              this.getData();
+              setTimeout(() => {
+                this.getData();
+              }, 10);
               // this.editChart(data._id);
             }
           });

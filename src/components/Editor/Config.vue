@@ -52,6 +52,14 @@
             @click="thisKey='data'"
             v-show="currentElement.data.type == 'text'"
             :class="{active: thisKey=='data'}") 文字
+          .radio-btn(
+            @click="thisKey='data'"
+            v-show="currentElement.data.type == 'image'"
+            :class="{active: thisKey=='data'}") 图片
+          .radio-btn(
+            @click="thisKey='data'"
+            v-show="currentElement.data.type == 'border'"
+            :class="{active: thisKey=='data'}") 边框
       .panel(v-show="thisKey=='general'")
         .config-box
           .title 控件名称
@@ -92,7 +100,7 @@
             style="width: 100%; margin-bottom: 10px;")
             el-option(label="静态JSON" value="raw")
             el-option(label="我的数据源" value="connect")
-            el-option(label="表格数据" value="table")
+            //- el-option(label="表格数据" value="table")
             el-option(label="GET接口" value="get")
           //- el-input(
             v-model="currentElement.data.datacon.data"
@@ -171,6 +179,40 @@
             el-col(:span="20")
               el-input(v-model="currentElement.data.datacon.shadowBlur")
                 template(slot="append") px
+      .panel(v-show="thisKey=='data' && currentElement.data.type == 'image'")
+        .config-box
+          .title 上传图片
+          el-upload(
+            class="bg-uploader"
+            action="http://localhost:3000/api/uploadfile/"
+            :show-file-list="false"
+            :on-success="handleImageUploadSuccess"
+            :before-upload="beforeUpload")
+            .bg-preview-wrapper(v-if="this.currentElement.data.datacon.img")
+              img.bg-preview(:src="this.currentElement.data.datacon.img")
+            i.el-icon-plus.avatar-uploader-icon(v-else)
+          el-row
+            el-col(:span="24" v-show="this.currentElement.data.datacon.img")
+              el-select(v-model="currentElement.data.datacon.imgSize" placeholder="请选择" style="width: 100%")
+                el-option(label="覆盖" value="cover")
+                el-option(label="平铺" value="contain")
+                el-option(label="拉伸" value="100% 100%")
+        .config-box
+          .title 透明度
+          el-slider(v-model="currentElement.data.datacon.opacity" :max="1" :step="0.01" show-input)
+      .panel(v-show="thisKey=='data' && currentElement.data.type == 'border'")
+        .config-box
+          .title 边框样式
+          el-select(
+            v-model="currentElement.data.datacon.borderId"
+            placeholder="请选择"
+            style="width: 100%; margin-bottom: 10px;")
+            el-option(label="古典-棕" :value="1")
+            el-option(label="古典-白" :value="2")
+            el-option(label="科技" :value="3")
+        .config-box
+          .title 透明度
+          el-slider(v-model="currentElement.data.datacon.opacity" :max="1" :step="0.01" show-input)
 </template>
 
 <script>
@@ -238,6 +280,12 @@ export default {
     handleChartDataChange() {
       this.$parent.generateData(this.currentElement);
     },
+    handleImageUploadSuccess(res, file) {
+      // console.log(res);
+      this.currentElement.data.datacon.img = res.url;
+      // console.log(file);
+      // this.imageUrl = URL.createObjectURL(file.raw);
+    },
   },
 };
 </script>
@@ -291,6 +339,7 @@ export default {
     margin-bottom: 12px;
   }
   .btn {
+    display: inline-block;
     width: 32px;
     height: 32px;
     line-height: 32px;
