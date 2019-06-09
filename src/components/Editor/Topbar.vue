@@ -1,7 +1,9 @@
 <template lang="pug">
   .header
     .filename {{$parent.title}}
-    i.btn.iconfont.icon-preview
+    i.btn.iconfont.icon-preview(
+      :class="{active: $parent.preview}"
+      @click="$parent.preview = !$parent.preview")
     .publish-btn(@click="saveChartData") 发布
 </template>
 
@@ -55,6 +57,10 @@ export default {
   }
   .iconfont {
     font-size: 32px;
+  }
+  &.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #409EFF;
   }
 }
 

@@ -2,11 +2,11 @@
   .editor-view
     .topbar-view
       Topbar
-    .toolbar-view
+    .toolbar-view(v-show="!preview")
       Toolbar
-    .config-view
+    .config-view(v-show="!preview")
       Config
-    .scale-view
+    .scale-view(:class="{preview: preview}")
       ScaleBar(@update:scale="changeScale")
     .main-view
       router-view(:scale="scale" ref="screenContainer")
@@ -31,6 +31,7 @@ export default {
     return {
       title: '',
       scale: 0.7,
+      preview: false,
       chartData: {
         elements: [],
       },
@@ -162,6 +163,9 @@ export default {
   right: 316px;
   bottom: 16px;
   z-index: 1000;
+  &.preview {
+    right: 40px;
+  }
 }
 
 .main-view {

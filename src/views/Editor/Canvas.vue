@@ -18,7 +18,7 @@
         vue-drag-resize(
           v-for="(item, index) in chartData.elements"
           :key="index"
-          :isActive="item.active"
+          :isActive="item.active && !$parent.preview"
           :parentScaleX="scale"
           :parentScaleY="scale"
           :x="item.x"
@@ -32,8 +32,8 @@
           :minw="20"
           :minh="20"
           :z="chartData.elements.length - index"
-          :isDraggable="true"
-          :isResizable="true"
+          :isDraggable="!$parent.preview"
+          :isResizable="!$parent.preview"
           @activated="handleActivated(index)"
           @resizing="handleResize(item, arguments[0])"
           @dragging="handleDrag(item, arguments[0])")
