@@ -1,84 +1,90 @@
 <template lang="pug">
-  .edit-view(
-    tabindex="0"
-    @keydown.space.prevent="handleSpaceDown"
-    @keyup.space.prevent="handleSpaceUp"
-    @click.self="handleActivated(-1)")
-    vue-draggable-resizable(
-        :style="wrapStyle"
-        :x="100"
-        :y="50"
-        :w="chartData.w"
-        :h="chartData.h"
-        class-name="screen-box"
-        class-name-draggable="screen-box-draggable"
-        :draggable="screenDraggable"
-        :resizable="false")
-      .screen(:style="screenStyle" @click.self="handleActivated(-1)" ref="screen")
-        vue-drag-resize(
-          v-for="(item, index) in chartData.elements"
-          :key="index"
-          :isActive="item.active && !$parent.preview"
-          :parentScaleX="scale"
-          :parentScaleY="scale"
-          :x="item.x"
-          :y="item.y"
-          :w="item.w"
-          :h="item.h"
-          :parentLimitation="true"
-          :parentW="chartData.w"
-          :parentH="chartData.h"
-          :aspectRatio="false"
-          :minw="20"
-          :minh="20"
-          :z="chartData.elements.length - index"
-          :isDraggable="!$parent.preview"
-          :isResizable="!$parent.preview"
-          @activated="handleActivated(index)"
-          @resizing="handleResize(item, arguments[0])"
-          @dragging="handleDrag(item, arguments[0])")
-          div.filler(
-            v-if="item.data.type == 'chart'"
-            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
-            ve-map(
-              v-if="item.data.settings.type=='map'"
-              :width="item.w + 'px'"
-              :height="item.h + 'px'"
-              :data="item.data.generated"
-              :settings="item.data.settings"
-              @ready-once="generateData(item)")
-            ve-liquidfill(
-              v-else-if="item.data.settings.type=='liquidfill'"
-              :width="item.w + 'px'"
-              :height="item.h + 'px'"
-              :data="item.data.generated"
-              @ready-once="generateData(item)")
-            ve-chart(
-              v-else
-              :width="item.w + 'px'"
-              :height="item.h + 'px'"
-              :data="item.data.generated"
-              :settings="item.data.settings"
-              @ready-once="generateData(item)")
-          div.filler(
-            v-if="item.data.type == 'text'"
-            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
-            div.textcontainer(
-              :style="{fontFamily: item.data.datacon.fontFamily, fontWeight: item.data.datacon.bold ? 'bold' : 'normal', fontStyle: item.data.datacon.italic ? 'italic' : 'normal', color: item.data.datacon.color, fontSize: item.data.datacon.fontSize + 'px', textStroke: item.data.datacon.stroke ? item.data.datacon.strokeSize+'px '+item.data.datacon.strokeColor : '0', textShadow: item.data.datacon.shadow ? '5px 5px '+item.data.datacon.shadowBlur+'px '+item.data.datacon.shadowColor : 'none'}"
-              v-text="item.data.datacon.text")
-          div.filler(
-            v-if="item.data.type == 'image'"
-            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
-            div.imagecontainer(
-              :style="{backgroundImage: `url(${item.data.datacon.img})`, backgroundSize: item.data.datacon.imgSize, opacity: item.data.datacon.opacity}")
-              .placeholder(v-show="!item.data.datacon.img")
-          div.filler(
-            v-if="item.data.type == 'border'"
-            :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
-            div.bordercontainer(
-              :class="'border' + item.data.datacon.borderId"
-              :style="{opacity: item.data.datacon.opacity}")
-        .mock(:class="{front: screenDraggable}")
+  div
+    el-dialog(title="发布" :visible.sync="$parent.publishPopVisible" width="50%")
+      div(style="margin-bottom: 16px;") 发布成功！当前图表的公开链接为：
+      el-input(v-model="publicUrl" readonly)
+      span(slot="footer")
+        el-button(type="primary" @click="$parent.publishPopVisible = false") 确 定
+    .edit-view(
+      tabindex="0"
+      @keydown.space.prevent="handleSpaceDown"
+      @keyup.space.prevent="handleSpaceUp"
+      @click.self="handleActivated(-1)")
+      vue-draggable-resizable(
+          :style="wrapStyle"
+          :x="100"
+          :y="50"
+          :w="chartData.w"
+          :h="chartData.h"
+          class-name="screen-box"
+          class-name-draggable="screen-box-draggable"
+          :draggable="screenDraggable"
+          :resizable="false")
+        .screen(:style="screenStyle" @click.self="handleActivated(-1)" ref="screen")
+          vue-drag-resize(
+            v-for="(item, index) in chartData.elements"
+            :key="index"
+            :isActive="item.active && !$parent.preview"
+            :parentScaleX="scale"
+            :parentScaleY="scale"
+            :x="item.x"
+            :y="item.y"
+            :w="item.w"
+            :h="item.h"
+            :parentLimitation="true"
+            :parentW="chartData.w"
+            :parentH="chartData.h"
+            :aspectRatio="false"
+            :minw="20"
+            :minh="20"
+            :z="chartData.elements.length - index"
+            :isDraggable="!$parent.preview"
+            :isResizable="!$parent.preview"
+            @activated="handleActivated(index)"
+            @resizing="handleResize(item, arguments[0])"
+            @dragging="handleDrag(item, arguments[0])")
+            div.filler(
+              v-if="item.data.type == 'chart'"
+              :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+              ve-map(
+                v-if="item.data.settings.type=='map'"
+                :width="item.w + 'px'"
+                :height="item.h + 'px'"
+                :data="item.data.generated"
+                :settings="item.data.settings"
+                @ready-once="generateData(item)")
+              ve-liquidfill(
+                v-else-if="item.data.settings.type=='liquidfill'"
+                :width="item.w + 'px'"
+                :height="item.h + 'px'"
+                :data="item.data.generated"
+                @ready-once="generateData(item)")
+              ve-chart(
+                v-else
+                :width="item.w + 'px'"
+                :height="item.h + 'px'"
+                :data="item.data.generated"
+                :settings="item.data.settings"
+                @ready-once="generateData(item)")
+            div.filler(
+              v-if="item.data.type == 'text'"
+              :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+              div.textcontainer(
+                :style="{fontFamily: item.data.datacon.fontFamily, fontWeight: item.data.datacon.bold ? 'bold' : 'normal', fontStyle: item.data.datacon.italic ? 'italic' : 'normal', color: item.data.datacon.color, fontSize: item.data.datacon.fontSize + 'px', textStroke: item.data.datacon.stroke ? item.data.datacon.strokeSize+'px '+item.data.datacon.strokeColor : '0', textShadow: item.data.datacon.shadow ? '5px 5px '+item.data.datacon.shadowBlur+'px '+item.data.datacon.shadowColor : 'none'}"
+                v-text="item.data.datacon.text")
+            div.filler(
+              v-if="item.data.type == 'image'"
+              :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+              div.imagecontainer(
+                :style="{backgroundImage: `url(${item.data.datacon.img})`, backgroundSize: item.data.datacon.imgSize, opacity: item.data.datacon.opacity}")
+                .placeholder(v-show="!item.data.datacon.img")
+            div.filler(
+              v-if="item.data.type == 'border'"
+              :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+              div.bordercontainer(
+                :class="'border' + item.data.datacon.borderId"
+                :style="{opacity: item.data.datacon.opacity}")
+          .mock(:class="{front: screenDraggable}")
 </template>
 
 <script>
@@ -91,6 +97,9 @@ export default {
     };
   },
   computed: {
+    publicUrl() {
+      return `http://${window.location.host}/#/view/${this.$route.params.id}`;
+    },
     chartData() {
       return this.$parent.chartData;
     },

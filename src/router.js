@@ -54,10 +54,18 @@ const router = new Router({
           path: ':id',
           component: () => import('./views/Editor/Canvas.vue'),
           meta: {
-            title: '数据管理',
+            title: '大屏编辑',
           },
         },
       ],
+    },
+    {
+      path: '/view/:id',
+      name: 'view',
+      component: () => import('./views/Viewer/Canvas.vue'),
+      meta: {
+        title: '大屏查看 | ChartFun',
+      },
     },
   ],
 });

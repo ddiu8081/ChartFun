@@ -37,6 +37,7 @@ export default {
       chartData: {
         elements: [],
       },
+      publishPopVisible: false,
       currentElementIndex: -1,
     };
   },
@@ -92,6 +93,7 @@ export default {
           .then((res) => {
             const { errno, data } = res.data;
             if (errno === 0) {
+              this.publishPopVisible = true;
               this.$message({
                 type: "success",
                 message: "保存成功"
