@@ -67,7 +67,7 @@ export default {
                 });
                 setTimeout(() => {
                   this.getData();
-                }, 10);
+                }, 100);
                 // this.editChart(data._id);
               }
             })
@@ -92,7 +92,7 @@ export default {
               });
               setTimeout(() => {
                 this.getData();
-              }, 10);
+              }, 100);
               // this.editChart(data._id);
             }
           });

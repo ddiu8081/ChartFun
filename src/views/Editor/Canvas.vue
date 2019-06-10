@@ -40,7 +40,21 @@
           div.filler(
             v-if="item.data.type == 'chart'"
             :style="{width: '100%', height: '100%', backgroundColor: item.bgcolor}")
+            ve-map(
+              v-if="item.data.settings.type=='map'"
+              :width="item.w + 'px'"
+              :height="item.h + 'px'"
+              :data="item.data.generated"
+              :settings="item.data.settings"
+              @ready-once="generateData(item)")
+            ve-liquidfill(
+              v-else-if="item.data.settings.type=='liquidfill'"
+              :width="item.w + 'px'"
+              :height="item.h + 'px'"
+              :data="item.data.generated"
+              @ready-once="generateData(item)")
             ve-chart(
+              v-else
               :width="item.w + 'px'"
               :height="item.h + 'px'"
               :data="item.data.generated"

@@ -121,6 +121,22 @@
             @change="handleChartDataChange"
             style="width: 100%; margin-bottom: 10px;")
             el-option(v-for="item in connectList" :label="item.name" :value="item._id")
+          el-input(
+            v-if="currentElement.data.datacon.type == 'get'"
+            v-model="currentElement.data.datacon.getUrl"
+            type="textarea"
+            :rows="5"
+            style="margin-bottom: 10px;")
+          el-row(v-if="currentElement.data.datacon.type == 'get'")
+            el-col(:span="8")
+              p(style="margin-top: 8px;") 刷新时间
+            el-col(:span="16")
+              el-input-number(
+                v-model="currentElement.data.datacon.interval"
+                :min="1"
+                :max="10"
+                @change="handleChartDataChange"
+                style="width: 100%;")
       .panel(v-show="thisKey=='data' && currentElement.data.type == 'text'")
         .config-box
           .title 输入文本

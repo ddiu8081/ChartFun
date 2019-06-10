@@ -76,46 +76,46 @@ export default {
               name: "雷达图",
               img: require("@/assets/img/charts/radar.png")
             },
+            // {
+            //   id: "map-world",
+            //   name: "世界地图",
+            //   img: require("@/assets/img/charts/map-world.png")
+            // },
             {
-              id: "map-world",
-              name: "世界地图",
-              img: require("@/assets/img/charts/map-world.png")
-            },
-            {
-              id: "map-china",
+              id: "map",
               name: "中国地图",
               img: require("@/assets/img/charts/map-china.png")
             },
-            {
-              id: "sankey",
-              name: "桑基图",
-              img: require("@/assets/img/charts/sankey.png")
-            },
-            {
-              id: "scatter",
-              name: "散点图",
-              img: require("@/assets/img/charts/scatter.png")
-            },
-            {
-              id: "candle",
-              name: "K线图",
-              img: require("@/assets/img/charts/candle.png")
-            },
-            {
-              id: "gauge",
-              name: "仪表盘",
-              img: require("@/assets/img/charts/gauge.png")
-            },
+            // {
+            //   id: "sankey",
+            //   name: "桑基图",
+            //   img: require("@/assets/img/charts/sankey.png")
+            // },
+            // {
+            //   id: "scatter",
+            //   name: "散点图",
+            //   img: require("@/assets/img/charts/scatter.png")
+            // },
+            // {
+            //   id: "candle",
+            //   name: "K线图",
+            //   img: require("@/assets/img/charts/candle.png")
+            // },
+            // {
+            //   id: "gauge",
+            //   name: "仪表盘",
+            //   img: require("@/assets/img/charts/gauge.png")
+            // },
             {
               id: "liquidfill",
               name: "水球图",
               img: require("@/assets/img/charts/liquidfill.png")
             },
-            {
-              id: "wordcloud",
-              name: "词云图",
-              img: require("@/assets/img/charts/wordcloud.png")
-            }
+            // {
+            //   id: "wordcloud",
+            //   name: "词云图",
+            //   img: require("@/assets/img/charts/wordcloud.png")
+            // }
           ]
         },
         text: {
@@ -223,6 +223,8 @@ export default {
                 { 日期: "1月6日", 访问用户: 7123 }
               ]
             },
+            getUrl: '',
+            interval: 2,
           },
           generated: {
             columns: ["日期", "访问用户"],

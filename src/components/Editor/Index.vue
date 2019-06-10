@@ -20,6 +20,8 @@ import Config from './Config.vue';
 import ScaleBar from './ScaleBar.vue';
 import html2canvas from 'html2canvas';
 
+var interval;
+
 export default {
   components: {
     Topbar,
@@ -56,6 +58,9 @@ export default {
         }
       })
       .catch(() => {});
+  },
+  beforeDestroy() {
+    clearInterval(interval);
   },
   methods: {
     changeScale(scale) {
@@ -109,6 +114,16 @@ export default {
             }
           })
           .catch(() => {});
+      } else if (item.data.datacon.type == 'get') {
+        clearInterval(interval);
+        let time = item.data.datacon.interval ? item.data.datacon.interval : 1;
+        interval = setInterval(() => {
+          this.$http.get(item.data.datacon.getUrl)
+            .then((res) => {
+              item.data.generated = res.data;
+            })
+            .catch(() => {});
+        }, time * 1000)
       }
     },
     generateScreenShot() {
