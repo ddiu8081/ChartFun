@@ -19,6 +19,7 @@
 <script>
 /* eslint-disable */
 export default {
+  props: ['user'],
   data() {
     return {
       connectList: [],
@@ -35,7 +36,7 @@ export default {
   methods: {
     getData() {
       this.$http
-        .get("/connect")
+        .get('/connect?uid=' + this.user.uid)
         .then(res => {
           const { errno, data } = res.data;
           if (errno === 0) {

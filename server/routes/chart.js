@@ -7,7 +7,7 @@ router.prefix('/chart');
 
 // 获取全部实例列表
 router.get('/', async (ctx, next) => {
-  const rows = await chartModel.find().select('-chartData');
+  const rows = await chartModel.find({ 'uid': ctx.request.query.uid }).select('-chartData');
   ctx.body = {
     errno: 0,
     data: {
@@ -39,7 +39,8 @@ router.post('/', async (ctx, next) => {
 
   const result = await chartModel.create({
     title: body.title,
-    img: 'https://image.ddiu.site/img/20190603221132.png',
+    img: '',
+    uid: body.uid,
     chartData: {
       "w": 1200,
       "h": 800,

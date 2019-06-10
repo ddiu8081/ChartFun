@@ -6,7 +6,7 @@
       el-header(height="96px")
         PageHeader
       el-main
-        router-view
+        router-view(:user="user")
 </template>
 
 <script>
@@ -14,6 +14,14 @@ import NavMenu from './NavMenu.vue';
 import PageHeader from './PageHeader.vue';
 
 export default {
+  data() {
+    return {
+      user: {
+        uid: localStorage.getItem('uid'),
+        username: localStorage.getItem('user'),
+      },
+    };
+  },
   components: {
     NavMenu,
     PageHeader,

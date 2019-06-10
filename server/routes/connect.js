@@ -7,7 +7,7 @@ router.prefix('/connect');
 
 // 获取全部数据源列表
 router.get('/', async (ctx, next) => {
-  const rows = await connectModel.find().select('-data');
+  const rows = await connectModel.find({ 'uid': ctx.request.query.uid }).select('-data');
   ctx.body = {
     errno: 0,
     data: {
@@ -39,7 +39,8 @@ router.post('/', async (ctx, next) => {
 
   const result = await connectModel.create({
     name: body.name,
-    data: body.data
+    data: body.data,
+    uid: body.uid,
   });
 
   ctx.body = {

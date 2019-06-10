@@ -5,10 +5,13 @@
       .desc 一站式数据大屏制作平台
       transition(name="slide-fade")
         .login-box(v-if="show")
-          el-input(placeholder="请输入学号或工号" v-model="form.user")
+          .radio-group
+            .radio-btn(:class="{active: tab == 'login'}" @click="tab = 'login'") 登录
+            .radio-btn(:class="{active: tab == 'reg'}" @click="tab = 'reg'") 注册
+          el-input(placeholder="请输入用户名" v-model="form.user")
           el-input(
             placeholder="请输入密码"
-            type="password"
+            :type="tab == 'login' ? 'password' : 'text'"
             v-model="form.password"
             style="margin-top: 10px;")
       .btn-wrapper
@@ -16,12 +19,16 @@
 </template>
 
 <script>
+/* eslint-disable */
+import md5 from 'js-md5';
+
 export default {
   data() {
     return {
       show: false,
+      tab: 'login',
       form: {
-        user: 'admin',
+        user: '',
         password: '',
       },
     };
@@ -31,10 +38,34 @@ export default {
   methods: {
     handleClick() {
       if (!this.show) {
-        this.show = true;
+        if (localStorage.getItem('uid')) {
+          this.$router.push('console');
+        } else {
+          this.show = true;
+        }
       } else {
-        this.$router.push('console');
-        // this.$message.error('用户名或密码错误');
+        // 开始检查
+        const md5pass = md5(this.form.password); // 对密码进行MD5加密
+        this.$http
+          .post(`/user/${this.tab}`, {
+            user: this.form.user,
+            pass: md5pass
+          })
+          .then((res) => {
+            const { errno, errmsg, data } = res.data;
+            if (errno === 0) {
+              this.$message({
+                type: 'success',
+                message: '验证成功'
+              });
+              localStorage.setItem('uid', data.uid);
+              localStorage.setItem('user', data.name);
+              this.$router.push('console');
+            } else {
+              this.$message.error(errmsg);
+            }
+          })
+          .catch(() => {});
       }
     },
   },
@@ -80,8 +111,21 @@ export default {
   background: #ffffff;
   width: 240px;
   margin: 20px auto 40px;
-  padding: 20px 40px;
+  padding: 0 40px 36px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+  .radio-group {
+    text-align: center;
+    .radio-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px 10px;
+      color: #999999;
+      &.active {
+        color: #212121;
+        border-bottom: 2px solid #212121;
+      }
+    }
+  }
 }
 
 .btn-wrapper {

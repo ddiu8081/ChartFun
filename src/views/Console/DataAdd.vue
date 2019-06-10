@@ -27,6 +27,7 @@
 /* eslint-disable */
 import XLSX from 'xlsx';
 export default {
+  props: ['user'],
   data () {
     return {
       form: {
@@ -81,7 +82,8 @@ export default {
               this.$http
                 .post('/connect/', {
                   name: this.form.name,
-                  data: this.newData
+                  data: this.newData,
+                  uid: this.user.uid
                 })
                 .then(res => {
                   const { errno, data } = res.data;

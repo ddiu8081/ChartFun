@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   title: String,
   img: String,
+  uid: String,
   chartData: Object
 }, { timestamps: true });
 

@@ -5,19 +5,40 @@
     .icon-row
       //- el-badge.icon.item(is-dot :hidden="true")
         i.el-icon-bell
-    .avatar-image
+    el-dropdown
+      .avatar-image
+      el-dropdown-menu(slot="dropdown")
+        el-dropdown-item(disabled) {{ user.username }}
+        el-dropdown-item(divided @click.native="logout") 退出
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      user: {
+        uid: localStorage.getItem('uid'),
+        username: localStorage.getItem('user'),
+      },
+    };
   },
   computed: {
     pageTitle() {
       return this.$route.meta.title;
     },
   },
+  mounted() {
+    if (!this.user.uid) {
+      this.logout();
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('uid');
+      localStorage.removeItem('user');
+      this.$router.push('/');
+    },
+  }
 };
 </script>
 

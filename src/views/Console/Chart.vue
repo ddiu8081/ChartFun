@@ -22,6 +22,7 @@
 <script>
 /* eslint-disable */
 export default {
+  props: ['user'],
   data() {
     return {
       chartList: [],
@@ -34,7 +35,7 @@ export default {
   methods: {
     getData() {
       this.$http
-        .get("/chart")
+        .get('/chart?uid=' + this.user.uid)
         .then(res => {
           const { errno, data } = res.data;
           if (errno === 0) {
@@ -54,7 +55,8 @@ export default {
         .then(({ value }) => {
           this.$http
             .post('/chart', {
-              title: value
+              title: value,
+              uid: this.user.uid,
             })
             .then(res => {
               const { errno, data } = res.data;
