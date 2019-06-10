@@ -1,5 +1,9 @@
 <template lang="pug">
   div
+    el-dialog(title="数据统计" :visible.sync="analyseVisible" width="400px")
+      el-table(:data="analyseData" :show-header="false")
+        el-table-column(property="key")
+        el-table-column(property="value")
     el-row(:gutter="36")
       el-col(:span="6" v-for="item in chartList" :key="item._id")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="editChart(item._id)")
@@ -11,8 +15,9 @@
               el-dropdown-menu(slot="dropdown")
                 el-dropdown-item(@click.native="editChart(item._id)") 编辑
                 el-dropdown-item(@click.native="renameChart(item)") 重命名
+                el-dropdown-item(@click.native="copyChart(item)") 复制
                 el-dropdown-item(@click.native="deleteChart(item._id)") 删除
-                el-dropdown-item(@click.native="editChart(item._id)" divided) 查看统计
+                el-dropdown-item(@click.native="openChartAnalyse(item)" divided) 查看统计
       el-col(:span="6")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="addNewChart")
           .add-card
@@ -26,7 +31,8 @@ export default {
   data() {
     return {
       chartList: [],
-      filter: ""
+      analyseData: [],
+      analyseVisible: false,
     };
   },
   mounted() {
@@ -102,6 +108,33 @@ export default {
         })
         .catch(() => {});
     },
+    copyChart(row) {
+      this.$prompt('输入大屏标题', '复制大屏项目', {
+        inputValue: row.title + '_复制',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      })
+        .then(({ value }) => {
+          this.$http
+            .post(`/chart/import/${row._id}`, {
+              title: value,
+              uid: this.user.uid,
+            })
+            .then(res => {
+              const { errno, data } = res.data;
+              if (errno === 0) {
+                this.$message({
+                  type: 'success',
+                  message: '创建成功'
+                });
+                this.getData();
+                // this.editChart(data._id);
+              }
+            })
+            .catch(() => {});
+        })
+        .catch(() => {});
+    },
     deleteChart(id) {
       this.$confirm('是否删除大屏项目？', '提示', {
         confirmButtonText: '确定',
@@ -124,6 +157,19 @@ export default {
             }
           });
       }).catch(() => {});
+    },
+    openChartAnalyse(row) {
+      this.analyseVisible = true;
+      this.analyseData = [{
+        key: '创建时间',
+        value: this.$dayjs(row.createdAt).format('YYYY-MM-DD HH:mm')
+      }, {
+        key: '修改时间',
+        value: this.$dayjs(row.updatedAt).format('YYYY-MM-DD HH:mm')
+      }, {
+        key: '访问人数',
+        value: row.view
+      }]
     },
   }
 };

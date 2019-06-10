@@ -41,6 +41,7 @@ router.post('/', async (ctx, next) => {
     title: body.title,
     img: '',
     uid: body.uid,
+    view: 0,
     chartData: {
       "w": 1200,
       "h": 800,
@@ -84,6 +85,25 @@ router.delete('/:id', async (ctx, next) => {
 
   ctx.body = {
     errno: 0,
+  }
+});
+
+// 复制、导入可视化图表
+router.post('/import/:id', async (ctx, next) => {
+  const body = ctx.request.body;
+
+  const originItem = await chartModel.findById(ctx.params.id);
+
+  const newItem = await chartModel.create({
+    title: body.title ? body.title : originItem.title + '_导入',
+    img: originItem.img,
+    uid: body.uid,
+    view: 0,
+    chartData: originItem.chartData
+  });
+
+  ctx.body = {
+    errno: 0
   }
 });
 
