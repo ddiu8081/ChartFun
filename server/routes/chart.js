@@ -19,6 +19,21 @@ router.get('/', async (ctx, next) => {
 // 获取某一实例列表
 router.get('/:id', async (ctx, next) => {
   const item = await chartModel.findById(ctx.params.id);
+
+  ctx.body = {
+    errno: 0,
+    data: item
+  }
+});
+
+// 大屏访问量增1
+router.get('/view/:id', async (ctx, next) => {
+  const item = await chartModel.findById(ctx.params.id);
+
+  item.view = item.view + 1;
+
+  item.save();
+
   ctx.body = {
     errno: 0,
     data: item

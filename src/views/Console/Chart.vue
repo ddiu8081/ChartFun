@@ -17,7 +17,8 @@
                 el-dropdown-item(@click.native="renameChart(item)") 重命名
                 el-dropdown-item(@click.native="copyChart(item)") 复制
                 el-dropdown-item(@click.native="deleteChart(item._id)") 删除
-                el-dropdown-item(@click.native="openChartAnalyse(item)" divided) 查看统计
+                el-dropdown-item(@click.native="viewChart(item._id)" divided) 访问
+                el-dropdown-item(@click.native="openChartAnalyse(item)") 查看统计
       el-col(:span="6")
         el-card(:body-style="{ padding: '0px' }" shadow="hover" @click.native="addNewChart")
           .add-card
@@ -157,6 +158,9 @@ export default {
             }
           });
       }).catch(() => {});
+    },
+    viewChart(id) {
+      this.$router.push(`/view/${id}`);
     },
     openChartAnalyse(row) {
       this.analyseVisible = true;

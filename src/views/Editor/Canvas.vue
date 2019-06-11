@@ -98,7 +98,7 @@ export default {
   },
   computed: {
     publicUrl() {
-      return `http://${window.location.host}${window.location.pathname}/#/view/${this.$route.params.id}`;
+      return `http://${window.location.host}${window.location.pathname}#/view/${this.$route.params.id}`;
     },
     chartData() {
       return this.$parent.chartData;

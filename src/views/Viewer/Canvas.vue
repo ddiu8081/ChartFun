@@ -70,7 +70,7 @@ export default {
     },
   },
   mounted() {
-    this.$http.get('/chart/' + this.$route.params.id)
+    this.$http.get('/chart/view/' + this.$route.params.id)
       .then((res) => {
         const { errno, data } = res.data;
         if (errno === 0) {
