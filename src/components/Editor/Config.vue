@@ -241,6 +241,10 @@ export default {
   },
   data() {
     return {
+      user: {
+        uid: localStorage.getItem('uid'),
+        username: localStorage.getItem('user'),
+      },
       editorSettings: {
         parentBg: 0, // 0代表背景颜色，1代表背景图片
         parentBgUrl: '',
@@ -262,7 +266,7 @@ export default {
   },
   mounted() {
     this.$http
-      .get("/connect")
+      .get('/connect?uid=' + this.user.uid)
       .then(res => {
         const { errno, data } = res.data;
         if (errno === 0) {
