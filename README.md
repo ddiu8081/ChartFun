@@ -1,3 +1,5 @@
+> notice: 2019毕设作品，后续如无必要将不再做功能性更新。
+
 <img src="./public/chartfun.png" width="200"></img>
 
 > Make data reports by dragging and dropping :)
