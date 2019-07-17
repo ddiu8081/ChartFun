@@ -43,6 +43,8 @@ npm run build
 
 ### 后端部分：Node.js + Koa + MongoDB
 
+准备工作：配置并运行 MongoDB 数据库，新建一个空数据库并命名为`chartfun`。无需手动配置表结构，它们会被自动创建。
+
 #### Run web-service
 
 ```
