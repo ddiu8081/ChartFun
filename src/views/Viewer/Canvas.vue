@@ -56,6 +56,7 @@ export default {
     return {
       chartData: {},
       document: document.documentElement,
+       interval:{}
     };
   },
   computed: {
@@ -96,9 +97,10 @@ export default {
           })
           .catch(() => {});
       } else if (item.data.datacon.type == 'get') {
-        clearInterval(interval);
+         //修复bug 此处interval没有定义导致报错
+        clearInterval(this.interval);
         let time = item.data.datacon.interval ? item.data.datacon.interval : 1;
-        interval = setInterval(() => {
+        this.interval = setInterval(() => {
           this.$http.get(item.data.datacon.getUrl)
             .then((res) => {
               item.data.generated = res.data;
