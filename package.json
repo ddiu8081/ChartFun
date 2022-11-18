@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^0.21.2",
     "dayjs": "^1.8.14",
-    "echarts": "^4.2.1",
+    "echarts": "^5.4.0",
     "element-ui": "^2.9.1",
     "html2canvas": "^1.0.0-rc.3",
     "js-md5": "^0.7.3",
